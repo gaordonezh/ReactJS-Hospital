@@ -11,8 +11,12 @@ import logo from "assets/images/logo.png";
 
 const LogoSection = () => {
   return (
-    <ButtonBase disableRipple component={Link} to={{ pathname: "/" }}>
-      <img src={logo} />
+    <ButtonBase
+      component={Link}
+      to={{ pathname: "/" }}
+      style={{ height: "88px" }}
+    >
+      <img src={logo} height="50px" />
     </ButtonBase>
   );
 };

@@ -1,2 +1,2 @@
-const session = "supercook";
-export default session;
+const SESSION_NAME = "htm";
+export default SESSION_NAME;

@@ -10,7 +10,7 @@ import itemsNav from "config/itemsNav";
 //-----------------------|| SIDEBAR MENU LIST ||-----------------------//
 
 const MenuList = () => {
-  const navItems = itemsNav.items.map((item) => {
+  const navItems = itemsNav.map((item) => {
     switch (item.type) {
       case "group":
         return <NavGroup key={item.id} item={item} />;

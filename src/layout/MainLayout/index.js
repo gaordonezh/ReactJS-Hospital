@@ -9,17 +9,18 @@ import { AppBar, CssBaseline, Toolbar, useMediaQuery } from "@mui/material";
 
 // third-party
 import clsx from "clsx";
-
+import { SET_MENU } from "redux/actions";
 // project imports
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 // assets
-
+const drawerWidth = 260;
 // style constant
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    paddingTop: 90,
   },
   appBar: {
     backgroundColor: theme.palette.background.default,
@@ -41,17 +42,19 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     [theme.breakpoints.up("md")]: {
-      marginLeft: -(250 - 20),
-      width: `calc(100% - ${250}px)`,
+      marginLeft: -(drawerWidth - 20),
+      // width: `calc(100% - ${drawerWidth}px)`,
+      width: "calc((100vw) - 30px) !important",
     },
     [theme.breakpoints.down("md")]: {
       marginLeft: "20px",
-      width: `calc(100% - ${250}px)`,
+      // width: `calc(100% - ${drawerWidth}px)`,
+      width: "calc((100vw) - 30px) !important",
       padding: "16px",
     },
     [theme.breakpoints.down("sm")]: {
       marginLeft: "10px",
-      width: `calc(100% - ${250}px)`,
+      width: `calc(100% - ${drawerWidth}px)`,
       padding: "16px",
       marginRight: "10px",
     },
@@ -82,10 +85,15 @@ const MainLayout = ({ children }) => {
 
   // Handle left drawer
   const leftDrawerOpened = useSelector((state) => state.customization.opened);
+
   const dispatch = useDispatch();
-  const handleLeftDrawerToggle = () => {};
+
+  const handleLeftDrawerToggle = () => {
+    dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
+  };
 
   React.useEffect(() => {
+    dispatch({ type: SET_MENU, opened: !matchDownMd });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchDownMd]);
 
@@ -94,7 +102,6 @@ const MainLayout = ({ children }) => {
       <CssBaseline />
       {/* header */}
       <AppBar
-        enableColorOnDark
         position="fixed"
         color="inherit"
         elevation={0}
@@ -122,8 +129,6 @@ const MainLayout = ({ children }) => {
       >
         {children}
       </main>
-
-      {/* <Customization /> */}
     </div>
   );
 };

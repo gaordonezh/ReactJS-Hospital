@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import DashboardLayout from "./MainLayout";
 import user from "utils/userDetails";
+import Page401 from "pages/Errors/Page401";
 
 const AppRoutes = ({
   component: Component,
@@ -17,14 +18,14 @@ const AppRoutes = ({
       path={path}
       render={(props) =>
         isPrivate && (!user || !Boolean(user.token) || !user.rol) ? (
-          <Redirect to={{ pathname: "/home" }} />
+          <Redirect to={{ pathname: "/login" }} />
         ) : isPrivate ? (
           listRoles.includes(user.rol) ? (
             <DashboardLayout>
               <Component {...props} />
             </DashboardLayout>
           ) : (
-            "NO ESTÁS AUTORIZADO"
+            <Page401 />
           )
         ) : (
           <Component {...props} />

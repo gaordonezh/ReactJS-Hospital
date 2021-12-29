@@ -14,7 +14,7 @@ import {
   Box,
 } from "@mui/material";
 import ListItemButton from "@mui/material/ListItemButton";
-
+import { MENU_OPEN, SET_MENU } from "redux/actions";
 // project imports
 
 // assets
@@ -73,12 +73,6 @@ const NavItem = ({ item, level }) => {
     />
   );
 
-  // let itemIconClass = !item.icon ? classes.listIcon : classes.menuIcon;
-  // itemIconClass =
-  //   customization.navType === "nav-dark"
-  //     ? [itemIconClass, classes.listCustomIcon].join(" ")
-  //     : itemIconClass;
-
   let itemTarget = "";
   if (item.target) {
     itemTarget = "_blank";
@@ -93,14 +87,20 @@ const NavItem = ({ item, level }) => {
     listItemProps = { component: "a", href: item.url };
   }
 
-  const itemHandler = (id) => {};
+  const itemHandler = (id) => {
+    dispatch({ type: MENU_OPEN, id: id });
+    matchesSM && dispatch({ type: SET_MENU, opened: false });
+  };
 
   // active menu item on page load
   React.useEffect(() => {
-    // const currentIndex = document.location.pathname
-    //   .toString()
-    //   .split("/")
-    //   .findIndex((id) => id === item.id);
+    const currentIndex = document.location.pathname
+      .toString()
+      .split("/")
+      .findIndex((id) => id === item.id);
+    if (currentIndex > -1) {
+      dispatch({ type: MENU_OPEN, id: item.id });
+    }
     // eslint-disable-next-line
   }, []);
 

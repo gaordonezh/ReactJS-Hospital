@@ -105,7 +105,6 @@ const ProfileSection = () => {
         window.location.reload();
       });
   };
-  const photo = user.data.profile_picture;
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -134,7 +133,6 @@ const ProfileSection = () => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
-
     prevOpen.current = open;
   }, [open]);
 
@@ -145,9 +143,8 @@ const ProfileSection = () => {
         className={classes.profileChip}
         icon={
           <Avatar
-            src={photo ? photo : tenedorLogo}
+            src={tenedorLogo}
             className={classes.headerAvatar}
-            ref={anchorRef}
             aria-controls={open ? "menu-list-grow" : undefined}
             aria-haspopup="true"
             color="inherit"
@@ -168,25 +165,15 @@ const ProfileSection = () => {
         color="primary"
       />
       <Popper
-        placement="bottom-end"
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
         transition
         disablePortal
-        popperOptions={{
-          modifiers: [
-            {
-              name: "offset",
-              options: {
-                offset: [0, 14],
-              },
-            },
-          ],
-        }}
+        style={{ right: 0, left: "auto", top: 65 }}
       >
         {open && (
-          <Paper>
+          <Paper elevation={10}>
             <ClickAwayListener onClickAway={handleClose}>
               <Card
                 border={false}

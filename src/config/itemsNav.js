@@ -1,17 +1,16 @@
-import PersonIcon from "@mui/icons-material/Person";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import HomeWorkIcon from "@mui/icons-material/HomeWork";
-import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import AltRouteIcon from "@mui/icons-material/AltRoute";
-import DateRangeIcon from "@mui/icons-material/DateRange";
-import PeopleIcon from "@mui/icons-material/People";
-import NotesIcon from "@mui/icons-material/Notes";
-import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
-import ChatIcon from "@mui/icons-material/Chat";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import DomainIcon from "@mui/icons-material/Domain";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
+import ViewDayIcon from "@mui/icons-material/ViewDay";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
+import CarpenterIcon from "@mui/icons-material/Carpenter";
+import DoorSlidingIcon from "@mui/icons-material/DoorSliding";
+import BedIcon from "@mui/icons-material/Bed";
+import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
 
 //-----------------------|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||-----------------------//
 
@@ -20,79 +19,108 @@ const itemsNav = [
     id: "menu",
     type: "group",
     title: "GENERAL",
-    roles: ["superadmin", "admin", "teacher", "student"],
+    roles: ["superadmin", "admin", "rrhh", "logistica", "doctor"],
     children: [
       {
-        id: "inicio",
-        title: "Inicio",
+        id: "dashboard",
+        title: "Dashboard",
         type: "item",
-        url: "/",
-        roles: ["superadmin", "admin", "teacher", "student"],
         icon: DashboardIcon,
+        url: "/",
+        roles: ["superadmin", "admin", "rrhh", "logistica", "doctor"],
       },
       {
-        id: "schools",
-        title: "Colegios",
+        id: "company",
+        title: "Empresas",
         type: "item",
-        url: "/schools",
+        icon: ApartmentIcon,
+        url: "/company",
         roles: ["superadmin"],
-        icon: HomeWorkIcon,
       },
       {
-        id: "rooms",
-        title: "Aulas",
+        id: "patient",
+        title: "Pacientes",
         type: "item",
-        url: "/rooms",
-        roles: ["superadmin", "admin"],
-        icon: MeetingRoomIcon,
+        icon: PersonOutlineIcon,
+        url: "/patient",
+        roles: ["superadmin", "admin", "rrhh", "doctor"],
       },
       {
-        id: "courses",
-        title: "Cursos",
-        type: "item",
-        url: "/courses",
+        id: "people",
+        title: "Usuarios",
+        type: "collapse",
+        icon: PeopleAltIcon,
         roles: ["superadmin", "admin"],
-        icon: LibraryBooksIcon,
+        children: [
+          {
+            id: "admin",
+            title: "Director Ejecutivo",
+            type: "item",
+            url: "/admin",
+            roles: ["superadmin", "admin"],
+          },
+          {
+            id: "rrhh",
+            title: "Servicios Generales",
+            type: "item",
+            url: "/rrhh",
+            roles: ["superadmin", "admin"],
+          },
+          {
+            id: "logistica",
+            title: "Logística",
+            type: "item",
+            url: "/logistica",
+            roles: ["superadmin", "admin"],
+          },
+          {
+            id: "doctor",
+            title: "Personal Médico",
+            type: "item",
+            url: "/doctor",
+            roles: ["superadmin", "admin"],
+          },
+        ],
       },
       {
-        id: "postulations",
-        title: "Postulaciones",
+        id: "schedule",
+        title: "Horarios",
         type: "item",
-        url: "/postulations",
-        roles: ["superadmin", "admin"],
-        icon: PersonAddIcon,
+        icon: CalendarTodayIcon,
+        url: "/schedule",
+        roles: ["superadmin", "admin", "rrhh"],
+      },
+      {
+        id: "quotes",
+        title: "Citas",
+        type: "item",
+        icon: ViewDayIcon,
+        url: "/quotes",
+        roles: ["superadmin", "admin", "doctor"],
+      },
+      {
+        id: "histories",
+        title: "Historias Clínicas",
+        type: "item",
+        icon: ReceiptIcon,
+        url: "/histories",
+        roles: ["superadmin", "admin", "doctor"],
       },
     ],
   },
   {
-    id: "academicgestion",
+    id: "equipos",
     type: "group",
-    title: "GESTIÓN ACADÉMICA",
-    roles: ["superadmin", "admin", "teacher", "student"],
+    title: "EQUIPOS",
+    roles: ["superadmin", "admin", "logistica"],
     children: [
       {
-        id: "calendar",
-        title: "Calendario",
+        id: "equipment",
+        title: "Equipos",
         type: "item",
-        url: "/calendar",
-        icon: CalendarTodayIcon,
-        roles: ["superadmin", "admin", "teacher"],
-      },
-      {
-        id: "mycoursesteacher",
-        title: "Mis Cursos",
-        type: "item",
-        url: "/teacher/courses",
-        icon: LibraryBooksIcon,
-        roles: ["superadmin", "admin", "teacher"],
-      },
-      {
-        id: "mycoursesstudent",
-        title: "Mis Cursos",
-        type: "item",
-        url: "/student/courses",
-        icon: LibraryBooksIcon,
-        roles: ["student"],
+        icon: CarpenterIcon,
+        url: "/equipment",
+        roles: ["superadmin", "admin", "logistica"],
       },
     ],
   },
@@ -100,152 +128,47 @@ const itemsNav = [
     id: "config",
     type: "group",
     title: "CONFIGURACIÓN",
-    roles: ["superadmin", "admin"],
+    roles: ["superadmin", "admin", "logistica"],
     children: [
       {
-        id: "assigment",
+        id: "building",
+        title: "Edificios",
+        type: "item",
+        icon: DomainIcon,
+        url: "/building",
+        roles: ["superadmin", "admin", "logistica"],
+      },
+      {
+        id: "level",
+        title: "Niveles",
+        type: "item",
+        icon: AlignHorizontalLeftIcon,
+        url: "/level",
+        roles: ["superadmin", "admin", "logistica"],
+      },
+      {
+        id: "room",
+        title: "Habitaciones",
+        type: "item",
+        icon: DoorSlidingIcon,
+        url: "/room",
+        roles: ["superadmin", "admin", "logistica"],
+      },
+      {
+        id: "bed",
+        title: "Camas",
+        type: "item",
+        icon: BedIcon,
+        url: "/bed",
+        roles: ["superadmin", "admin", "logistica"],
+      },
+      {
+        id: "assignment",
         title: "Asignación",
         type: "item",
-        url: "/assigment",
-        roles: ["superadmin", "admin"],
-        icon: AltRouteIcon,
-      },
-      {
-        id: "periods",
-        title: "Periodos",
-        type: "item",
-        url: "/periods",
-        roles: ["superadmin", "admin"],
-        icon: DateRangeIcon,
-      },
-      {
-        id: "units",
-        title: "Unidades",
-        type: "item",
-        url: "/units",
-        roles: ["superadmin", "admin"],
-        icon: AcUnitIcon,
-      },
-      {
-        id: "noterange",
-        title: "Rango de Notas",
-        type: "item",
-        url: "/noterange",
-        roles: ["superadmin", "admin"],
-        icon: NotesIcon,
-      },
-    ],
-  },
-  {
-    id: "social",
-    type: "group",
-    title: "SOCIAL",
-    roles: ["superadmin", "admin", "teacher"],
-    children: [
-      {
-        id: "notices",
-        title: "Noticias",
-        type: "item",
-        url: "/notices",
-        roles: ["superadmin", "admin", "teacher"],
-        icon: RecordVoiceOverIcon,
-      },
-      {
-        id: "messages",
-        title: "Mensajes",
-        type: "item",
-        url: "/messages",
-        roles: ["superadmin", "admin", "teacher"],
-        icon: ChatIcon,
-      },
-    ],
-  },
-  {
-    id: "users",
-    type: "group",
-    title: "USUARIOS",
-    roles: ["superadmin", "admin"],
-    children: [
-      {
-        id: "people",
-        title: "Usuarios",
-        type: "collapse",
-        roles: ["superadmin", "admin"],
-        icon: PeopleIcon,
-        children: [
-          {
-            id: "admin",
-            title: "Administrador",
-            type: "item",
-            url: "/users/admin",
-            roles: ["superadmin"],
-            icon: PersonIcon,
-          },
-          {
-            id: "teacher",
-            title: "Profesor",
-            type: "item",
-            url: "/users/teacher",
-            roles: ["superadmin", "admin"],
-            icon: PersonIcon,
-          },
-          {
-            id: "family",
-            title: "Familia",
-            type: "item",
-            url: "/users/family",
-            roles: ["superadmin", "admin"],
-            icon: PersonIcon,
-          },
-          {
-            id: "student",
-            title: "Alumnos",
-            type: "item",
-            url: "/users/student",
-            roles: ["superadmin", "admin"],
-            icon: PersonIcon,
-          },
-          {
-            id: "director",
-            title: "Director",
-            type: "item",
-            url: "/users/director",
-            roles: ["superadmin", "admin"],
-            icon: PersonIcon,
-          },
-          {
-            id: "psicologa",
-            title: "Psicologo",
-            type: "item",
-            url: "/users/psicologa",
-            roles: ["superadmin", "admin"],
-            icon: PersonIcon,
-          },
-          {
-            id: "coordinator",
-            title: "Coordinador",
-            type: "item",
-            url: "/users/coordinator",
-            roles: ["superadmin", "admin"],
-            icon: PersonIcon,
-          },
-          {
-            id: "librarian",
-            title: "Bibliotecario",
-            type: "item",
-            url: "/users/librarian",
-            roles: ["superadmin", "admin"],
-            icon: PersonIcon,
-          },
-          {
-            id: "nurse",
-            title: "Enfermera",
-            type: "item",
-            url: "/users/nurse",
-            roles: ["superadmin", "admin"],
-            icon: PersonIcon,
-          },
-        ],
+        icon: AutoAwesomeMosaicIcon,
+        url: "/assignment",
+        roles: ["superadmin", "admin", "logistica"],
       },
     ],
   },

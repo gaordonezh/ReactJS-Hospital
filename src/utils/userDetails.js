@@ -1,15 +1,15 @@
 import SESSION_NAME from "config/session";
-import SessionStorageService from "auth/SessionStorageService";
+import StorageService from "auth/StorageService";
 
-let all = SessionStorageService.get(SESSION_NAME);
+let all = StorageService.get(SESSION_NAME);
 
-let token = all ? all.value.token : null;
+let token = all ? all.token : null;
+let data = all ? all.data : null;
+let rol = all ? all.data.rol : null;
+let company = all ? all.data.company : null;
+let logoCompany = all ? all.data.company.logo : null;
+let idCompany = all ? all.data.company._id : null;
 
-let data = all ? all.value.data : null;
-let rol = all ? all.value.data.rol : null;
-let restaurant = all ? all.value.data.restaurant : null;
-let restaurants = all ? all.value.data.restaurants : null;
-
-const userDetails = { token, data, rol, restaurant, restaurants };
+const userDetails = { token, data, rol, company, logoCompany, idCompany };
 
 export default userDetails;

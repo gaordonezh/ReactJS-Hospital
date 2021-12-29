@@ -1,31 +1,13 @@
-import { api } from "utils/api";
-import SessionStorageService from "./SessionStorageService";
-import SessionTimeService from "./SessionTimeService";
+import StorageService from "./StorageService";
 import SESSION_NAME from "config/session";
-import axios from "axios";
+import { authUser } from "requests";
 
 class AuthenticationService {
-  static isAuthenticated = false;
-
-  static userData;
-
-  static headers = {
-    "Content-Type": "application/json",
-    "X-Requested-With": "XMLHttpRequest",
-  };
-
   static login(obj) {
     const result = new Promise((resolve, reject) => {
-      axios
-        .post(`${api}/auth/signin`, obj)
-        .then((res) => {
-          this.isAuthenticated = true;
-          this.userData = res;
-          SessionStorageService.set(SESSION_NAME, {
-            expiresAt: SessionTimeService.estimatedTime(),
-            value: res.data,
-          });
-          resolve(res.data);
+      authUser(obj)
+        .then((data) => {
+          resolve(data);
         })
         .catch(() => {
           reject(new Error("Usuario y/o contraseña incorrectos."));
@@ -38,7 +20,7 @@ class AuthenticationService {
     return new Promise((resolve, reject) => {
       this.isAuthenticated = false;
       this.userData = null;
-      SessionStorageService.remove(SESSION_NAME);
+      StorageService.remove(SESSION_NAME);
       resolve();
     });
   }
