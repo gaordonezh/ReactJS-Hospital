@@ -2,12 +2,10 @@ import PropTypes from "prop-types";
 import React from "react";
 // material-ui
 import { makeStyles } from "@mui/styles";
-import { Avatar, Box, ButtonBase } from "@mui/material";
+import { Avatar, Box, ButtonBase, Typography } from "@mui/material";
 // project imports
 import LogoSection from "../LogoSection";
 import ProfileSection from "./ProfileSection";
-/* import NotificationSection from "./NotificationSection"; */
-import ChangeRestaurant from "./ChangeRestaurant";
 import user from "utils/userDetails";
 // assets
 import MenuIcon from "@mui/icons-material/Menu";
@@ -62,13 +60,15 @@ const Header = ({ handleLeftDrawerToggle }) => {
           </Avatar>
         </ButtonBase>
       </div>
-      <Box pl={3} style={{ display: "flex", alignItems: "center" }}>
-        {user.rol === "superadmin" && <ChangeRestaurant />}
-      </Box>
-      {/* header search */}
+      {user && (
+        <Box pl={3} style={{ display: "flex", alignItems: "center" }}>
+          <Typography variant="h5">
+            <b>{user.company.name}</b>
+          </Typography>
+        </Box>
+      )}
+
       <div className={classes.grow} />
-      {/* notification & profile */}
-      {/* <NotificationSection /> */}
 
       <ProfileSection />
     </React.Fragment>

@@ -21,6 +21,7 @@ const Level = Loadable(lazy(() => import("pages/Level")));
 const Room = Loadable(lazy(() => import("pages/Room")));
 const Bed = Loadable(lazy(() => import("pages/Bed")));
 const Assignment = Loadable(lazy(() => import("pages/Assignment")));
+const Insumos = Loadable(lazy(() => import("pages/Insumos")));
 
 const routes = [
   {
@@ -118,6 +119,14 @@ const routes = [
     component: Equipment,
     isPrivate: true,
     name: "equipment",
+  },
+  {
+    path: "/insumos",
+    exact: true,
+    listRoles: ["superadmin", "admin", "logistica"],
+    component: Insumos,
+    isPrivate: true,
+    name: "insumos",
   },
   {
     path: "/building",

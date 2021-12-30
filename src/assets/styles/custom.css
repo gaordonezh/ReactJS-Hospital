@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+table tr th {
+  background: #4C9CA4 !important;
+  color: white !important;
+}
+
+.MuiModal-root {
+  z-index: 999 !important;
+}
+
+table tr th,
+table tr td {
+  border-left: 1px solid rgba(200, 200, 200, 0.5);
+  border-right: 1px solid rgba(200, 200, 200, 0.5);
+}
+
+.fc-scrollgrid-liquid th .fc-scrollgrid-sync-inner {
+  height: 40px;
+}
+
+.fc-scrollgrid-liquid th .fc-scrollgrid-sync-inner a {
+  color: #fff !important;
+}

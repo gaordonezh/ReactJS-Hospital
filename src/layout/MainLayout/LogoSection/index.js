@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { ButtonBase } from "@mui/material";
 
 // project imports
-import logo from "assets/images/logo.png";
+import userDetails from "utils/userDetails";
 
 //-----------------------|| MAIN LOGO ||-----------------------//
 
@@ -16,7 +16,7 @@ const LogoSection = () => {
       to={{ pathname: "/" }}
       style={{ height: "88px" }}
     >
-      <img src={logo} height="50px" />
+      <img src={userDetails.logoCompany} height="50px" />
     </ButtonBase>
   );
 };

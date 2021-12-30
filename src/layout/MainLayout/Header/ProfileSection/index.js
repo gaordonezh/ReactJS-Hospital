@@ -23,11 +23,8 @@ import {
 import ListItemButton from "@mui/material/ListItemButton";
 import moment from "moment";
 import user from "utils/userDetails";
-import tenedorLogo from "assets/images/logo.png";
-
 // third-party
 import AuthenticationService from "auth/AuthenticationService";
-
 // assets
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -49,18 +46,19 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     ...theme.typography.mediumAvatar,
     margin: "8px 0 8px 8px !important",
+    border: `1px solid ${theme.palette.primary.main}`,
   },
   profileChip: {
     height: "48px",
     alignItems: "center",
     borderRadius: "27px",
     transition: "all .2s ease-in-out",
-    borderColor: theme.palette.primary.light,
-    backgroundColor: theme.palette.primary.light,
+    borderColor: theme.palette.primary.main,
+    // backgroundColor: theme.palette.primary.main,
     '&[aria-controls="menu-list-grow"], &:hover': {
       borderColor: theme.palette.primary.main,
       background: theme.palette.primary.main + "!important",
-      color: theme.palette.primary.light,
+      color: "#fff",
       "& svg": {
         stroke: theme.palette.primary.light,
       },
@@ -143,7 +141,7 @@ const ProfileSection = () => {
         className={classes.profileChip}
         icon={
           <Avatar
-            src={tenedorLogo}
+            src={user.logoCompany}
             className={classes.headerAvatar}
             aria-controls={open ? "menu-list-grow" : undefined}
             aria-haspopup="true"

@@ -11,6 +11,7 @@ import CarpenterIcon from "@mui/icons-material/Carpenter";
 import DoorSlidingIcon from "@mui/icons-material/DoorSliding";
 import BedIcon from "@mui/icons-material/Bed";
 import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
+import AllInboxIcon from "@mui/icons-material/AllInbox";
 
 //-----------------------|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||-----------------------//
 
@@ -120,6 +121,22 @@ const itemsNav = [
         type: "item",
         icon: CarpenterIcon,
         url: "/equipment",
+        roles: ["superadmin", "admin", "logistica"],
+      },
+    ],
+  },
+  {
+    id: "insumos",
+    type: "group",
+    title: "INSUMOS",
+    roles: ["superadmin", "admin", "logistica"],
+    children: [
+      {
+        id: "insumos",
+        title: "Insumos",
+        type: "item",
+        icon: AllInboxIcon,
+        url: "/insumos",
         roles: ["superadmin", "admin", "logistica"],
       },
     ],

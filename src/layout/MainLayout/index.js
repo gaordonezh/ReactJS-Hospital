@@ -15,12 +15,12 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 // assets
-const drawerWidth = 260;
+const drawerWidth = 220;
 // style constant
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    paddingTop: 90,
+    paddingTop: 70,
+    padding: 10,
   },
   appBar: {
     backgroundColor: theme.palette.background.default,
@@ -32,47 +32,11 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 99,
   },
   content: {
-    ...theme.typography.mainContent,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    [theme.breakpoints.up("md")]: {
-      marginLeft: -(drawerWidth - 20),
-      // width: `calc(100% - ${drawerWidth}px)`,
-      width: "calc((100vw) - 30px) !important",
-    },
-    [theme.breakpoints.down("md")]: {
-      marginLeft: "20px",
-      // width: `calc(100% - ${drawerWidth}px)`,
-      width: "calc((100vw) - 30px) !important",
-      padding: "16px",
-    },
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: "10px",
-      width: `calc(100% - ${drawerWidth}px)`,
-      padding: "16px",
-      marginRight: "10px",
-    },
+    // border: "5px solid red",
   },
   contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    [theme.breakpoints.down("md")]: {
-      marginLeft: "20px",
-    },
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: "10px",
-    },
+    // border: "5px solid green",
+    marginLeft: drawerWidth,
   },
 }));
 

@@ -94,8 +94,9 @@ const CustomTable = ({ data, columns, loading, ...rest }) => {
       bordered
       columns={allColumns}
       dataSource={data}
-      scroll={{ x: "100%" }}
+      scroll={{ x: "auto" }}
       loading={loading}
+      rowKey="_id"
       {...rest}
     />
   );

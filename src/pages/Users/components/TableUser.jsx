@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import CustomTable from "components/CustomTable";
-import { ButtonGroup, Button, Avatar } from "@mui/material";
+import { ButtonGroup, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalUser from "./ModalUser";
 
@@ -8,15 +8,6 @@ const TableUser = ({ data = [], loading, setLoading, reloadFunction, rol }) => {
   const [editUser, setEditUser] = useState({ open: false, data: null });
 
   const columns = [
-    {
-      title: "",
-      dataIndex: "profile_picture",
-      key: "profile_picture",
-      align: "center",
-      sorter: false,
-      filter: false,
-      render: (value) => <Avatar src={value} />,
-    },
     {
       title: "Nombres",
       dataIndex: "f_name",

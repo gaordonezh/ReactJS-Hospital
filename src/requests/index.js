@@ -35,6 +35,7 @@ import {
 import { getHistories, postHistories } from "./history";
 import { getAttentions, postAttentions, putAttentions } from "./attention";
 import { getRecipes, postRecipes, putRecipes, getDashboard } from "./recipe";
+import { getInsumos, postInsumos, putInsumos, deleteInsumos } from "./insumos";
 
 export {
   // USUARIOS
@@ -108,4 +109,9 @@ export {
   postRecipes,
   putRecipes,
   getDashboard,
+  // INSUMOS
+  getInsumos,
+  postInsumos,
+  putInsumos,
+  deleteInsumos,
 };
