@@ -26,6 +26,7 @@ import {
   postEquipments,
   putEquipments,
   getEquipmentsByRoom,
+  getEquipmentById,
 } from "./equipments";
 import {
   getMaintenances,
@@ -90,6 +91,7 @@ export {
   getBedsByRoom,
   // EQUIPMENT
   getEquipments,
+  getEquipmentById,
   postEquipments,
   putEquipments,
   getEquipmentsByRoom,

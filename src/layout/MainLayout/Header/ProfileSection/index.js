@@ -215,65 +215,6 @@ const ProfileSection = () => {
                       sx={{
                         borderRadius: customization.borderRadius + "px",
                       }}
-                      selected={selectedIndex === 0}
-                      onClick={(event) => handleListItemClick(event, 0)}
-                      component={React.forwardRef((props, ref) => (
-                        <RouterLink {...props} to="/config" />
-                      ))}
-                    >
-                      <ListItemIcon>
-                        <SettingsIcon stroke={1.5} size="1.3rem" />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={
-                          <Typography
-                            variant="body2"
-                            style={{
-                              letterSpacing: "0em",
-                              fontWeight: 400,
-                              lineHeight: "1.5em",
-                            }}
-                          >
-                            Configuración
-                          </Typography>
-                        }
-                      />
-                    </ListItemButton>
-
-                    <ListItemButton
-                      className={classes.listItem}
-                      sx={{
-                        borderRadius: customization.borderRadius + "px",
-                      }}
-                      selected={selectedIndex === 0}
-                      onClick={(event) => handleListItemClick(event, 0)}
-                      component={React.forwardRef((props, ref) => (
-                        <RouterLink {...props} to="/profile" />
-                      ))}
-                    >
-                      <ListItemIcon>
-                        <PersonOutlineIcon stroke={1.5} size="1.3rem" />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={
-                          <Typography
-                            variant="body2"
-                            style={{
-                              letterSpacing: "0em",
-                              fontWeight: 400,
-                              lineHeight: "1.5em",
-                            }}
-                          >
-                            Cuenta
-                          </Typography>
-                        }
-                      />
-                    </ListItemButton>
-                    <ListItemButton
-                      className={classes.listItem}
-                      sx={{
-                        borderRadius: customization.borderRadius + "px",
-                      }}
                       selected={selectedIndex === 4}
                       onClick={handleLogout}
                     >

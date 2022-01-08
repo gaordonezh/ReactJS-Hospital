@@ -20,10 +20,7 @@ const ModalChange = (props) => {
       res.data["company"] = data;
       StorageService.set(SESSION_NAME, res);
       window.location.href = "/";
-    } catch (error) {
-      console.log(error);
-    } finally {
-    }
+    } catch (error) {}
   };
 
   return (

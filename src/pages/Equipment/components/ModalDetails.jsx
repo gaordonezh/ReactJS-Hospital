@@ -59,7 +59,10 @@ const pageStyle = `
   }
 
   @media print {
-    body { -webkit-print-color-adjust: exact; padding: 50px !important; }
+    body {
+      -webkit-print-color-adjust: exact;
+      padding: 29px !important;
+    }
     .pagebreak {
       page-break-before: always;
     }
@@ -73,8 +76,8 @@ const ModalDetails = ({ open, setOpen, data, equipment }) => {
 
   return (
     <Dialog open={open} onClose={() => setOpen({ open: false })} fullScreen>
-      <DialogContent>
-        {/* <Print
+      <DialogContent align="center">
+        <Print
           trigger={() => (
             <Button variant="contained" color="primary" size="large">
               <PrintIcon />
@@ -85,11 +88,11 @@ const ModalDetails = ({ open, setOpen, data, equipment }) => {
           documentTitle="TÍTULO DEL DOCUMENTO"
           removeAfterPrint={true}
           pageStyle={pageStyle}
-        /> */}
+        />
         <Container maxWidth="md">
-          <Paper elevation={10}>
-            <div ref={printPage}>
-              <Box p={5}>
+          <Paper variant="outlined">
+            <Box p={5}>
+              <div ref={printPage}>
                 <Title title="1. DATOS DEL USUARIO (Ubicación física del equipo)" />
                 <Grid item xs={12}>
                   <Box pl={3}>
@@ -339,7 +342,7 @@ const ModalDetails = ({ open, setOpen, data, equipment }) => {
 
                   <Title title="7. DATOS DE LOS REPUESTOS (Partes, accesorios y materiales)" />
                   <Grid item xs={12}>
-                    <Box pl={3}>
+                    <Box pl={3} sx={{ mt: 1 }}>
                       <TableContainer>
                         <Table size="small">
                           <TableHead>
@@ -348,7 +351,7 @@ const ModalDetails = ({ open, setOpen, data, equipment }) => {
                                 N°
                               </TableCell>
                               <TableCell align="center" style={{ padding: 3 }}>
-                                Código(ESSalud)
+                                Código
                               </TableCell>
                               <TableCell align="center" style={{ padding: 3 }}>
                                 Tipo
@@ -445,7 +448,7 @@ const ModalDetails = ({ open, setOpen, data, equipment }) => {
 
                   <Title title="8. DATOS DE LA MANO DE OBRA" />
                   <Grid item xs={12}>
-                    <Box pl={3}>
+                    <Box pl={3} sx={{ mt: 1 }}>
                       <TableContainer>
                         <Table size="small">
                           <TableHead>
@@ -530,63 +533,50 @@ const ModalDetails = ({ open, setOpen, data, equipment }) => {
 
                   <Title title="9. DATOS DE COSTOS TOTALES (S/.)" />
                   <Grid item xs={12}>
-                    <Box pl={3}>
-                      <Grid container spacing={1}>
-                        <Grid item xs={12} md={4}>
-                          <Card variant="outlined">
-                            <CardContent align="center">
-                              <Typography variant="body1">
-                                <b>COSTO DE REPUESTOS</b>
-                              </Typography>
-                              <Typography variant="body1">
+                    <Box pl={3} sx={{ mt: 1 }}>
+                      <TableContainer>
+                        <Table size="small">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell align="center">
+                                COSTO DE REPUESTOS
+                              </TableCell>
+                              <TableCell align="center">
+                                COSTO DE MANO DE OBRA
+                              </TableCell>
+                              <TableCell align="center">
+                                COSTOS ADICIONALES
+                              </TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell align="center">
                                 S/ {ttRecursos}
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                          <Card variant="outlined">
-                            <CardContent align="center">
-                              <Typography variant="body1">
-                                <b>COSTO DE MANO DE OBRA</b>
-                              </Typography>
-                              <Typography variant="body1">
-                                S/ {ttRRHH}
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                          <Card variant="outlined">
-                            <CardContent align="center">
-                              <Typography variant="body1">
-                                <b>COSTO ADICIONALES</b>
-                              </Typography>
-                              <Typography variant="body1">
+                              </TableCell>
+                              <TableCell align="center">S/ {ttRRHH}</TableCell>
+                              <TableCell align="center">
                                 S/ {data.aditional}
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Card variant="outlined">
-                            <CardContent align="center">
-                              <Typography variant="h6">
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell align="right" colSpan={2}>
                                 <b>COSTO TOTAL</b>
-                              </Typography>
-                              <Typography variant="h6">
-                                {"S/ "}
-                                {ttRecursos + ttRRHH + Number(data.aditional)}
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </Grid>
-                      </Grid>
+                              </TableCell>
+                              <TableCell align="center">
+                                {`S/ ${
+                                  ttRecursos + ttRRHH + Number(data.aditional)
+                                }`}
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
                     </Box>
                   </Grid>
                 </Grid>
-              </Box>
-            </div>
+              </div>
+            </Box>
           </Paper>
         </Container>
       </DialogContent>

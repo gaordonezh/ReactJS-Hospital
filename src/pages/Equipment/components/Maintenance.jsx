@@ -12,30 +12,33 @@ import {
   TableBody,
 } from "@mui/material";
 import Page from "components/Page";
-import { getMaintenances } from "requests";
+import { getMaintenances, getEquipmentById } from "requests";
 import { Empty, notification, Spin } from "antd";
 import ModalDetails from "./ModalDetails";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import SettingsIcon from "@mui/icons-material/Settings";
 import ModalMaintenance from "./ModalMaintenance";
 import moment from "moment-timezone";
+import { useParams, Link } from "react-router-dom";
+import { Edit } from "@mui/icons-material";
 
-const Equipment = ({ equipment, setMaintenance, reloadFunction }) => {
+const Equipment = () => {
+  const { idequipment } = useParams();
   const [modalDetails, setModalDetails] = useState({ open: false, data: null });
+  const [equipment, setEquipment] = useState(null);
   const [modal, setModal] = useState({ data: null, open: false });
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    if (equipment) {
-      obtainData(equipment._id);
-    }
-  }, [equipment]);
+    obtainData();
+  }, []);
 
-  const obtainData = async (code) => {
+  const obtainData = async () => {
     setLoading(true);
     try {
-      const res = await getMaintenances(code);
+      const res = await getMaintenances(idequipment);
+      const resE = await getEquipmentById(idequipment);
+      setEquipment(resE);
       setData(res.reverse());
     } catch (error) {
       notification["error"]({
@@ -50,13 +53,14 @@ const Equipment = ({ equipment, setMaintenance, reloadFunction }) => {
   return (
     <Page
       helper="EQUIPOS"
-      title={`MANTENIMIENTO DE ${equipment.name}`}
+      title={`MANTENIMIENTO DE ${equipment?.name ?? "..."}`}
       itemComponent={
         <Fragment>
           <Button
             variant="outlined"
             size="large"
-            onClick={() => setMaintenance({ open: false, data: null })}
+            component={Link}
+            to="/equipment"
           >
             VOLVER
           </Button>{" "}
@@ -109,7 +113,7 @@ const Equipment = ({ equipment, setMaintenance, reloadFunction }) => {
                               color="secondary"
                               onClick={() => setModal({ open: true, data: el })}
                             >
-                              <SettingsIcon />
+                              <Edit />
                             </Fab>
                           </Tooltip>
                           <Tooltip placement="top-end" title="Resumen">
@@ -133,7 +137,9 @@ const Equipment = ({ equipment, setMaintenance, reloadFunction }) => {
           ) : (
             <Grid item xs={12} align="center">
               <Empty
-                description={`AQUÍ SE MOSTRARÁN LOS MANTENIMIENTO DE ${equipment.name}`}
+                description={`AQUÍ SE MOSTRARÁN LOS MANTENIMIENTO DE ${
+                  equipment?.name ?? "..."
+                }`}
               />
             </Grid>
           )}
@@ -146,8 +152,6 @@ const Equipment = ({ equipment, setMaintenance, reloadFunction }) => {
           data={modal.data}
           equipment={equipment}
           refreshFunction={obtainData}
-          reloadFunction={reloadFunction}
-          setMaintenance={setMaintenance}
         />
       )}
       {modalDetails.open && (

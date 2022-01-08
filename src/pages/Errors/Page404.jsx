@@ -1,7 +1,6 @@
 import { Link as RouterLink } from "react-router-dom";
 // material
 import { Box, Button, Typography, Grid } from "@mui/material";
-import image from "assets/images/logo.png";
 // ----------------------------------------------------------------------
 
 export default function Page404() {
@@ -15,7 +14,7 @@ export default function Page404() {
           Lo sentimos, no pudimos encontrar la página que busca. ¿Quizás ha
           escrito mal la URL? Asegúrese de revisar su ortografía.
         </Typography>
-        <Box component="img" src={image} sx={{ maxWidth: "100%" }} />
+        <Box component="img" src="/htm.jpg" sx={{ maxWidth: "100%" }} />
         <Button to="/" size="large" variant="contained" component={RouterLink}>
           LLÉVAME A CASA
         </Button>

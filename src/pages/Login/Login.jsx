@@ -18,7 +18,6 @@ import StorageService from "auth/StorageService";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import AuthenticationService from "auth/AuthenticationService";
-import logo from "assets/images/logo.png";
 import { notification, Spin } from "antd";
 // import { useDispatch, useSelector } from "react-redux";
 // import { USER_TOKEN, USER_DATA } from "redux/actions";
@@ -37,6 +36,7 @@ const SectionStyle = styled(Card)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
+  alignItems: "center",
   margin: theme.spacing(2, 0, 2, 2),
 }));
 
@@ -77,7 +77,6 @@ const Login = () => {
       // dispatch({ type: USER_DATA, data: res.data });
       // dispatch({ type: USER_TOKEN, token: res.token });
     } catch (error) {
-      console.log(error);
       notification["warning"]({ message: "Usuario o contraseña incorrecta" });
     } finally {
       setLoading(false);
@@ -87,11 +86,11 @@ const Login = () => {
   return (
     <RootStyle title="Boletas de remuneraciones">
       <Hidden mdDown>
-        <SectionStyle>
+        <SectionStyle variant="outlined">
           <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
             Hola de nuevo
           </Typography>
-          <img src={logo} alt="login" height="100px" />
+          <img src="/htm.jpg" alt="login" width="200p" />
         </SectionStyle>
       </Hidden>
 

@@ -135,18 +135,21 @@ const ModalEquipments = (props) => {
                     type="date"
                     InputLabelProps={{ shrink: true }}
                     sx={{ mb: 1 }}
+                    disabled={!el.status}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton
-                            onClick={() => {
-                              dates.splice(i, 1);
-                              setDates([...dates]);
-                            }}
-                            color="error"
-                          >
-                            <CloseIcon />
-                          </IconButton>
+                          {el.status && (
+                            <IconButton
+                              onClick={() => {
+                                dates.splice(i, 1);
+                                setDates([...dates]);
+                              }}
+                              color="error"
+                            >
+                              <CloseIcon />
+                            </IconButton>
+                          )}
                         </InputAdornment>
                       ),
                     }}
@@ -161,7 +164,7 @@ const ModalEquipments = (props) => {
                 <Button
                   variant="outlined"
                   onClick={() => {
-                    dates.push({ date: "" });
+                    dates.push({ date: "", status: true });
                     setDates([...dates]);
                   }}
                 >

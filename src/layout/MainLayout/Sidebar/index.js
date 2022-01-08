@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 99,
   },
   ScrollHeight: {
-    height: "calc(100vh - 88px)",
+    height: "calc((100vh) - 88px)",
     paddingLeft: "16px",
     paddingRight: "16px",
     [theme.breakpoints.down("sm")]: {
-      height: "calc(100vh - 56px)",
+      height: "calc((100vh) - 56px)",
     },
   },
   boxContainer: {
@@ -67,7 +67,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
         </PerfectScrollbar>
       </Hidden>
       <Hidden mdDown>
-        <Box sx={{ px: 2 }}>
+        <Box sx={{ px: 2, mb:10 }}>
           <MenuList />
         </Box>
       </Hidden>

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import {
   Dialog,
   DialogActions,
@@ -33,8 +33,9 @@ import {
 import { useForm } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
 import { Spin, notification } from "antd";
-import { postMaintenances, putMaintenances } from "requests";
+import { getInsumos, postMaintenances, putMaintenances } from "requests";
 import { Box } from "@mui/system";
+import SelectInsumos from "components/selects/SelectInsumos";
 
 const statusList = [
   "Bueno",
@@ -72,12 +73,11 @@ const ModalMaintenance = ({
   data,
   equipment,
   refreshFunction,
-  reloadFunction,
-  setMaintenance,
 }) => {
   const flg = Boolean(data);
   const [date, setDate] = useState("");
   const [tipoFalla, setTipoFalla] = useState(flg ? data.tipo_falla : listTF);
+  const [insumos, setInsumos] = useState([]);
   const [programmed, setProgrammed] = useState(flg ? data.programmed : false);
   const [loading, setLoading] = useState(false);
   const [statusStart, setStatusStart] = useState(
@@ -150,12 +150,8 @@ const ModalMaintenance = ({
       if (flg) await putMaintenances(items, data._id);
       else await postMaintenances(items);
 
-      refreshFunction(equipment._id);
+      refreshFunction();
 
-      if (flg) {
-        reloadFunction();
-        setMaintenance({ open: false, data: null });
-      }
       setOpen({ open: false });
       notification["success"]({
         message: `El mantenimiento se ${
@@ -166,6 +162,25 @@ const ModalMaintenance = ({
       notification["error"]({
         message: `Oops!`,
         description: `Ocurrió un error al procesar la información.`,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!data) obtainData();
+  }, []);
+
+  const obtainData = async () => {
+    setLoading(true);
+    try {
+      const res = await getInsumos();
+      let result = res.filter((e) => e.stock >= 0);
+      setInsumos(result);
+    } catch (error) {
+      notification["error"]({
+        message: `Ocurrió un error al realizar la operación.`,
       });
     } finally {
       setLoading(false);
@@ -195,12 +210,26 @@ const ModalMaintenance = ({
   // RECURSOS
 
   const hndRecursos = (value, name, index) => {
-    rcrss[index][name] = value;
+    if (name === "id") {
+      let finder = insumos.find((e) => e._id === value);
+      if (finder) {
+        rcrss[index].id = value;
+        rcrss[index].name = finder.name;
+        rcrss[index].caract = finder.description;
+        rcrss[index].und_m = finder.u_medida;
+        rcrss[index].cant = 1;
+        rcrss[index].vlr_u = finder.precio;
+        rcrss[index].total = finder.precio;
+      }
+    } else {
+      rcrss[index][name] = value;
+    }
     setRcrss([...rcrss]);
   };
 
   const hndAddRecursos = () => {
     rcrss.push({
+      id: null,
       code: "",
       type: "Ejecutor",
       name: "",
@@ -241,6 +270,10 @@ const ModalMaintenance = ({
     setRrhh([...rrhh]);
   };
 
+  console.log(equipment);
+
+  const view = equipment.dates.filter((e) => e.status).length > 0;
+
   return (
     <Dialog open={open} fullScreen>
       <DialogTitle>
@@ -259,11 +292,17 @@ const ModalMaintenance = ({
                       <Grid item xs={12}>
                         <FormControl fullWidth>
                           <InputLabel>
-                            {equipment.dates.length > 0
-                              ? "FECHA DE MANTENIMIENTO"
-                              : "NO HAY FECHAS DE MANTENIMIENTO REGISTRADAS"}
+                            <Typography color={view ? "text.primary" : "error"}>
+                              {view ? (
+                                "FECHA DE MANTENIMIENTO"
+                              ) : (
+                                <b>
+                                  NO HAY FECHAS DE MANTENIMIENTO REGISTRADAS
+                                </b>
+                              )}
+                            </Typography>
                           </InputLabel>
-                          {equipment.dates.length > 0 && (
+                          {view && (
                             <Select
                               value={date}
                               onChange={(e) => setDate(e.target.value)}
@@ -319,7 +358,7 @@ const ModalMaintenance = ({
                                 defaultValue={flg ? data.date_request : ""}
                                 error={Boolean(errors?.date_request ?? false)}
                                 {...register("date_request", {
-                                  required: true,
+                                  required: false,
                                 })}
                                 InputLabelProps={{ shrink: true }}
                               />
@@ -334,7 +373,7 @@ const ModalMaintenance = ({
                                   errors?.date_conformidad ?? false
                                 )}
                                 {...register("date_conformidad", {
-                                  required: true,
+                                  required: false,
                                 })}
                                 InputLabelProps={{ shrink: true }}
                               />
@@ -615,7 +654,7 @@ const ModalMaintenance = ({
                             defaultValue={flg ? data.datetime_start : ""}
                             error={Boolean(errors?.datetime_start ?? false)}
                             InputLabelProps={{ shrink: true }}
-                            {...register("datetime_start", { required: true })}
+                            {...register("datetime_start", { required: false })}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -626,7 +665,7 @@ const ModalMaintenance = ({
                             defaultValue={flg ? data.datetime_end : ""}
                             error={Boolean(errors?.datetime_end ?? false)}
                             InputLabelProps={{ shrink: true }}
-                            {...register("datetime_end", { required: true })}
+                            {...register("datetime_end", { required: false })}
                           />
                         </Grid>
                         <Grid item xs={12}>
@@ -677,7 +716,7 @@ const ModalMaintenance = ({
                                             )
                                           }
                                           fullWidth
-                                          label="Código de repuesto (ESSALUD)"
+                                          label="Código de repuesto"
                                           size="small"
                                         />
                                       </Grid>
@@ -714,20 +753,30 @@ const ModalMaintenance = ({
                                         </FormControl>
                                       </Grid>
                                       <Grid item xs={12} sm={6} md={4} lg={3}>
-                                        <TextField
-                                          variant="outlined"
-                                          value={el.name}
-                                          onChange={(e) =>
-                                            hndRecursos(
-                                              e.target.value,
-                                              "name",
-                                              i
-                                            )
-                                          }
-                                          fullWidth
-                                          label="Nombre"
-                                          size="small"
-                                        />
+                                        {data ? (
+                                          <TextField
+                                            variant="outlined"
+                                            value={el.name}
+                                            onChange={(e) =>
+                                              hndRecursos(
+                                                e.target.value,
+                                                "name",
+                                                i
+                                              )
+                                            }
+                                            fullWidth
+                                            label="Nombre"
+                                            size="small"
+                                          />
+                                        ) : (
+                                          <SelectInsumos
+                                            data={insumos}
+                                            value={el.id}
+                                            setValue={(e) =>
+                                              hndRecursos(e, "id", i)
+                                            }
+                                          />
+                                        )}
                                       </Grid>
                                       <Grid item xs={12} sm={6} md={4} lg={3}>
                                         <TextField
@@ -974,7 +1023,7 @@ const ModalMaintenance = ({
                             defaultValue={flg ? data.aditional : ""}
                             error={Boolean(errors?.aditional ?? false)}
                             InputLabelProps={{ shrink: true }}
-                            {...register("aditional", { required: true })}
+                            {...register("aditional", { required: false })}
                           />
                         </Grid>
                       </Fragment>

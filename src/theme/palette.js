@@ -31,7 +31,7 @@ const GREY = {
 const PRIMARY = {
   lighter: "#C8FACD",
   light: "#5BE584",
-  main: "#4C9CA4",
+  main: "#00ACD5",
   // dark: '#007B55',
   darker: "#005249",
   contrastText: "#f2f2f2",
@@ -39,7 +39,7 @@ const PRIMARY = {
 const SECONDARY = {
   lighter: "#D6E4FF",
   light: "#84A9FF",
-  main: "#65D4B9",
+  main: "#4AE8FF",
   // dark: '#1939B7',
   darker: "#091A7A",
   contrastText: "#f2f2f2",
@@ -94,6 +94,7 @@ const CHART_COLORS = {
 };
 
 const palette = {
+  mode: "dark",
   common: { black: "#000", white: "#fff" },
   primary: { ...PRIMARY },
   secondary: { ...SECONDARY },

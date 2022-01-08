@@ -1,6 +1,5 @@
 import axios from "axios";
 import API_HOSPITAL from "config/api.config";
-import userDetails from "utils/userDetails";
 
 export const getMaintenances = async (equipment) => {
   let res = await axios.get(`${API_HOSPITAL}/maintenances/${equipment}`);

@@ -1,7 +1,7 @@
 import React from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-const list = [
+export const listTypes = [
   "EQUIPOS BIOMÉDICOS",
   "EQUIPOS MOBILIARIOS CLÍNICOS",
   "EQUIPOS MOBILIARIOS ADMINISTRATIVOS",
@@ -20,7 +20,7 @@ const SelectTypeEquipment = ({ value, onChange }) => {
         onChange={(e) => onChange(e.target.value)}
         label="TIPO DE EQUIPO"
       >
-        {list.map((el, index) => (
+        {listTypes.map((el, index) => (
           <MenuItem key={index} value={el} title={el}>
             {el}
           </MenuItem>
