@@ -7,6 +7,11 @@ export const getBuildings = async () => {
   return res.data;
 };
 
+export const getMap = async () => {
+  let res = await axios.get(`${API_HOSPITAL}/map/${userDetails.idCompany}`);
+  return res.data;
+};
+
 export const postBuildings = async (data) => {
   let res = await axios.post(`${API_HOSPITAL}/buildings`, data);
   return res.data;

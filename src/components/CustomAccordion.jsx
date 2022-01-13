@@ -42,8 +42,8 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-const CustomizedAccordion = ({ title, children }) => {
-  const [expanded, setExpanded] = React.useState(false);
+const CustomizedAccordion = ({ title, children, initial = false }) => {
+  const [expanded, setExpanded] = React.useState(initial);
 
   return (
     <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>

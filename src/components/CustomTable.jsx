@@ -26,7 +26,9 @@ const CustomTable = ({ data, columns, loading, ...rest }) => {
           onChange={(e) => {
             setSelectedKeys(e.target.value ? [e.target.value] : []);
           }}
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          onKeyDown={(e) => {
+            e.key === "Enter" && handleSearch(selectedKeys, confirm, dataIndex);
+          }}
           style={{ width: 188, marginBottom: 8, display: "block" }}
         />
         <Button
@@ -72,6 +74,7 @@ const CustomTable = ({ data, columns, loading, ...rest }) => {
     clearFilters();
     setsearchText("");
     setSelectedKeys([""]);
+    setsearchedColumn("");
   };
 
   useEffect(() => {

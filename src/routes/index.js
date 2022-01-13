@@ -25,6 +25,10 @@ const Insumos = Loadable(lazy(() => import("pages/Insumos")));
 const Maintenance = Loadable(
   lazy(() => import("pages/Equipment/components/Maintenance"))
 );
+const ListMaintenance = Loadable(
+  lazy(() => import("pages/Equipment/components/ListMaintenance"))
+);
+const Croquis = Loadable(lazy(() => import("pages/Map")));
 
 const routes = [
   {
@@ -132,12 +136,28 @@ const routes = [
     name: "equipment",
   },
   {
+    path: "/equipment/maintenance",
+    exact: true,
+    listRoles: ["superadmin", "admin", "logistica"],
+    component: ListMaintenance,
+    isPrivate: true,
+    name: "equipment",
+  },
+  {
     path: "/insumos",
     exact: true,
     listRoles: ["superadmin", "admin", "logistica"],
     component: Insumos,
     isPrivate: true,
     name: "insumos",
+  },
+  {
+    path: "/map",
+    exact: true,
+    listRoles: ["superadmin", "admin", "logistica"],
+    component: Croquis,
+    isPrivate: true,
+    name: "map",
   },
   {
     path: "/building",

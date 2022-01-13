@@ -36,6 +36,7 @@ import { Spin, notification } from "antd";
 import { getInsumos, postMaintenances, putMaintenances } from "requests";
 import { Box } from "@mui/system";
 import SelectInsumos from "components/selects/SelectInsumos";
+import userDetails from "utils/userDetails";
 
 const statusList = [
   "Bueno",
@@ -142,6 +143,7 @@ const ModalMaintenance = ({
       items["datetime_end"] = items.datetime_end;
       items["status_end"] = statusEnd;
       if (!flg) items["date"] = date;
+      if (!flg) items["company"] = userDetails.idCompany;
       // SIETE
       items["recursos"] = rcrss;
       // OCHO

@@ -25,33 +25,29 @@ const ModalRoom = (props) => {
   } = useForm();
 
   const sendRegister = async (items) => {
-    if (type) {
-      setLoading(true);
-      try {
-        items["type"] = type;
-        if (!data) items["company"] = user.idCompany;
-        if (data) await putRooms(items, data._id);
-        else await postRooms(items);
-        reloadFunction();
-        setOpen({ open: false });
-        notification["success"]({
-          message: `Éxito!`,
-          description: `El edificio se ${
-            Boolean(data) ? "actualizó" : "registró"
-          } correctamente.`,
-        });
-      } catch (error) {
-        notification["error"]({
-          message: `Error!`,
-          description: `Ocurrió un error al ${
-            Boolean(data) ? "actualizar" : "registrar"
-          } la información.`,
-        });
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      notification["warning"]({ message: "El tipo es requerido..." });
+    setLoading(true);
+    try {
+      items["type"] = type;
+      if (!data) items["company"] = user.idCompany;
+      if (data) await putRooms(items, data._id);
+      else await postRooms(items);
+      reloadFunction();
+      setOpen({ open: false });
+      notification["success"]({
+        message: `Éxito!`,
+        description: `El edificio se ${
+          Boolean(data) ? "actualizó" : "registró"
+        } correctamente.`,
+      });
+    } catch (error) {
+      notification["error"]({
+        message: `Error!`,
+        description: `Ocurrió un error al ${
+          Boolean(data) ? "actualizar" : "registrar"
+        } la información.`,
+      });
+    } finally {
+      setLoading(false);
     }
   };
 

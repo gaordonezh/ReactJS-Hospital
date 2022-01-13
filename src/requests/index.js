@@ -17,7 +17,7 @@ import {
 import { getSchedules, postSchedules, putSchedules } from "./schedule";
 import { getDays, postDays, putDays, getFreeDays } from "./day";
 import { getQuotes, getQuoteByUser, postQuotes, putQuotes } from "./quote";
-import { getBuildings, postBuildings, putBuildings } from "./building";
+import { getBuildings, getMap, postBuildings, putBuildings } from "./building";
 import { getLevels, postLevels, putLevels, getLevelsByBuilding } from "./level";
 import { getRooms, postRooms, putRooms, getRoomByLevel } from "./room";
 import { getBeds, postBeds, putBeds, getBedsByRoom } from "./bed";
@@ -30,6 +30,7 @@ import {
 } from "./equipments";
 import {
   getMaintenances,
+  getMaintenancesByDates,
   postMaintenances,
   putMaintenances,
 } from "./maintenance";
@@ -72,6 +73,7 @@ export {
   putQuotes,
   //BUILDING
   getBuildings,
+  getMap,
   postBuildings,
   putBuildings,
   // LEVEL
@@ -97,6 +99,7 @@ export {
   getEquipmentsByRoom,
   // MAINTENANCE
   getMaintenances,
+  getMaintenancesByDates,
   postMaintenances,
   putMaintenances,
   // HISTORIES
