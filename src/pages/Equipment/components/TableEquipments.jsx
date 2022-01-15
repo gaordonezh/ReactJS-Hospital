@@ -68,6 +68,7 @@ const TableEquipments = ({ data, loading, setModal }) => {
       align: "center",
       sorter: false,
       filter: false,
+      width: 425,
       render: (dates) => (
         <Fragment>
           {dates.length > 0 ? (
@@ -75,7 +76,7 @@ const TableEquipments = ({ data, loading, setModal }) => {
               let color = "success";
               if (el.status) {
                 color = "info";
-                if (moment().format("YYYY-MM-DD") > el.date) {
+                if (moment().format() > moment(el.date).format()) {
                   color = "error";
                 }
               }

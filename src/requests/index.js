@@ -27,6 +27,7 @@ import {
   putEquipments,
   getEquipmentsByRoom,
   getEquipmentById,
+  uploadEquipments,
 } from "./equipments";
 import {
   getMaintenances,
@@ -97,6 +98,7 @@ export {
   postEquipments,
   putEquipments,
   getEquipmentsByRoom,
+  uploadEquipments,
   // MAINTENANCE
   getMaintenances,
   getMaintenancesByDates,

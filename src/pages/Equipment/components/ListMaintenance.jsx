@@ -49,7 +49,7 @@ const TableMaintenance = ({ data = [], loading }) => {
       filter: false,
       render: (value) => {
         let color = "#1890FF";
-        if (moment().format("YYYY-MM-DD") > value) {
+        if (moment().format() > moment(value).format()) {
           color = "#FF4842";
         }
         return {
@@ -92,5 +92,12 @@ const TableMaintenance = ({ data = [], loading }) => {
     },
   ];
 
-  return <CustomTable columns={columns} data={data} loading={loading} />;
+  return (
+    <CustomTable
+      columns={columns}
+      data={data}
+      loading={loading}
+      pageSize={false}
+    />
+  );
 };

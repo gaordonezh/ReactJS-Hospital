@@ -30,3 +30,11 @@ export const getEquipmentsByRoom = async (idRoom) => {
   );
   return res.data;
 };
+
+export const uploadEquipments = async (data) => {
+  let res = await axios.post(
+    `${API_HOSPITAL}/upload/equipments/${userDetails.idCompany}`,
+    data
+  );
+  return res.data;
+};

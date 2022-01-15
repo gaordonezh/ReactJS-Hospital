@@ -272,8 +272,6 @@ const ModalMaintenance = ({
     setRrhh([...rrhh]);
   };
 
-  console.log(equipment);
-
   const view = equipment.dates.filter((e) => e.status).length > 0;
 
   return (
