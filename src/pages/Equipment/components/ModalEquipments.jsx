@@ -12,6 +12,8 @@ import {
   Divider,
   InputAdornment,
   IconButton,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Spin, notification } from "antd";
@@ -24,6 +26,7 @@ const ModalEquipments = (props) => {
   const { open, setOpen, setLoading, loading, data, reloadFunction } = props;
   const [type, setType] = useState(Boolean(data) ? data.type : null);
   const [dates, setDates] = useState(Boolean(data) ? data.dates : []);
+  const [grt, setGrt] = useState({ active: true, start: "", end: "" });
   const {
     register,
     handleSubmit,
@@ -72,11 +75,11 @@ const ModalEquipments = (props) => {
       <Spin spinning={loading}>
         <form onSubmit={handleSubmit(sendRegister)} autoComplete="off">
           <DialogContent>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
+            <Grid container spacing={1}>
+              <Grid item xs={12} md={6}>
                 <SelectTypeEquipment value={type} onChange={setType} />
               </Grid>
-              <Grid item xs={12} sm={12}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   label="NOMBRE"
                   autoFocus
@@ -86,7 +89,7 @@ const ModalEquipments = (props) => {
                   {...register("name", { required: true, maxLength: 80 })}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   label="ETIQUETA"
                   fullWidth
@@ -95,7 +98,7 @@ const ModalEquipments = (props) => {
                   {...register("etiqueta", { required: true, maxLength: 80 })}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   label="MARCA"
                   fullWidth
@@ -104,7 +107,7 @@ const ModalEquipments = (props) => {
                   {...register("marca", { required: true, maxLength: 80 })}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   label="MODELO"
                   fullWidth
@@ -113,13 +116,55 @@ const ModalEquipments = (props) => {
                   {...register("modelo", { required: true, maxLength: 80 })}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   label="SERIE"
                   fullWidth
                   defaultValue={Boolean(data) ? data.serie : ""}
                   error={Boolean(errors?.serie ?? false)}
                   {...register("serie", { required: true, maxLength: 80 })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  label="AÑO DE FABRICACIÓN"
+                  fullWidth
+                  type="number"
+                  defaultValue={Boolean(data) ? data.year_fab : ""}
+                  error={Boolean(errors?.year_fab ?? false)}
+                  {...register("year_fab", { required: true, min: 1900 })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  label="PRECIO"
+                  fullWidth
+                  type="number"
+                  defaultValue={Boolean(data) ? data.price : ""}
+                  error={Boolean(errors?.price ?? false)}
+                  inputProps={{ step: 0.01 }}
+                  {...register("price", { required: true, min: 0 })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={6}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={grt.active}
+                      onChange={(a, b) => setGrt({ ...grt, active: b })}
+                    />
+                  }
+                  label="¿Garantía?"
+                />
+
+                <TextField
+                  label="GARANTÍA"
+                  fullWidth
+                  type="number"
+                  defaultValue={Boolean(data) ? data.price : ""}
+                  error={Boolean(errors?.price ?? false)}
+                  inputProps={{ step: 0.01 }}
+                  {...register("price", { required: true, min: 0 })}
                 />
               </Grid>
               <Grid item xs={12}>

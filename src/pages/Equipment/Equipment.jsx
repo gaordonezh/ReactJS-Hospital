@@ -71,9 +71,9 @@ const Equipment = () => {
           EQUIPOS{" "}
           <FormHelperText
             component="a"
-            href="https://res.cloudinary.com/backet-repartos/raw/upload/v1642224920/IMPORTAR_PRODUCTOS_gmj3hz.xlsx"
+            href="https://res.cloudinary.com/backet-repartos/raw/upload/v1643167672/IMPORTAR_EQUIPOS_lsc6f5.xlsx"
             target="_blank"
-            sx={{color:'#6bc8ff'}}
+            sx={{ color: "#6bc8ff" }}
           >
             <AttachFile /> PLANTILLA DE IMPORTACIÓN
           </FormHelperText>
