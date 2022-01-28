@@ -22,7 +22,7 @@ const TableLevel = ({ data, loading, setModal }) => {
       filter: true,
     },
     {
-      title: "Habitaciones",
+      title: "UPSS",
       dataIndex: "_id",
       key: "_id",
       align: "center",

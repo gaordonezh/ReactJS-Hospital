@@ -14,7 +14,11 @@ export default function Page404() {
           Lo sentimos, no pudimos encontrar la página que busca. ¿Quizás ha
           escrito mal la URL? Asegúrese de revisar su ortografía.
         </Typography>
-        <Box component="img" src="/htm.jpg" sx={{ maxWidth: "100%" }} />
+        <Box
+          component="img"
+          src="/static/og_hospital.jpg"
+          sx={{ maxWidth: "100%" }}
+        />
         <Button to="/" size="large" variant="contained" component={RouterLink}>
           LLÉVAME A CASA
         </Button>

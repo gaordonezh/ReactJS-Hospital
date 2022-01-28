@@ -33,7 +33,7 @@ const Room = () => {
   return (
     <Page
       helper="CONFIGURACIÓN"
-      title="HABITACIONES o AMBIENTES"
+      title="UPSS"
       itemComponent={
         <Button
           variant="contained"

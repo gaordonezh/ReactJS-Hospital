@@ -28,7 +28,15 @@ const Maintenance = Loadable(
 const ListMaintenance = Loadable(
   lazy(() => import("pages/Equipment/components/ListMaintenance"))
 );
-const Croquis = Loadable(lazy(() => import("pages/Map")));
+const Resumen = Loadable(lazy(() => import("pages/Resumen")));
+const General = Loadable(
+  lazy(() => import("pages/Resumen/components/General"))
+);
+const BuildingMap = Loadable(
+  lazy(() => import("pages/Resumen/components/Building"))
+);
+const Levels = Loadable(lazy(() => import("pages/Resumen/components/Levels")));
+const UPSS = Loadable(lazy(() => import("pages/Resumen/components/UPSS")));
 
 const routes = [
   {
@@ -152,12 +160,44 @@ const routes = [
     name: "insumos",
   },
   {
-    path: "/map",
+    path: "/resume",
     exact: true,
     listRoles: ["superadmin", "admin", "logistica"],
-    component: Croquis,
+    component: Resumen,
     isPrivate: true,
-    name: "map",
+    name: "resume",
+  },
+  {
+    path: "/resume/general",
+    exact: true,
+    listRoles: ["superadmin", "admin", "logistica"],
+    component: General,
+    isPrivate: true,
+    name: "resume",
+  },
+  {
+    path: "/resume/buildings",
+    exact: true,
+    listRoles: ["superadmin", "admin", "logistica"],
+    component: BuildingMap,
+    isPrivate: true,
+    name: "resume",
+  },
+  {
+    path: "/resume/levels",
+    exact: true,
+    listRoles: ["superadmin", "admin", "logistica"],
+    component: Levels,
+    isPrivate: true,
+    name: "resume",
+  },
+  {
+    path: "/resume/upss",
+    exact: true,
+    listRoles: ["superadmin", "admin", "logistica"],
+    component: UPSS,
+    isPrivate: true,
+    name: "resume",
   },
   {
     path: "/building",

@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
 import Page from "components/Page";
-import { getMap } from "requests";
-import { Empty, notification, Spin } from "antd";
+import { Empty, Spin } from "antd";
 import {
   Grid,
   Card,
@@ -14,34 +12,31 @@ import {
   ListItemText,
   ListSubheader,
   ListItemIcon,
+  Button,
 } from "@mui/material";
 import CustomizedAccordion from "components/CustomAccordion";
-import { SubdirectoryArrowRight } from "@mui/icons-material";
+import { ArrowBack, SubdirectoryArrowRight } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import useLocation from "hooks/useLocation";
 
-const Map = () => {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    obtainData();
-  }, []);
-
-  const obtainData = async () => {
-    setLoading(true);
-    try {
-      const res = await getMap();
-      setData([...res]);
-    } catch (error) {
-      notification["error"]({
-        message: `Ocurrió un error al realizar la operación.`,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+const General = () => {
+  const { loading, data } = useLocation();
 
   return (
-    <Page helper="CROQUIS" title="CROQUIS">
+    <Page
+      helper="CROQUIS"
+      title="CROQUIS"
+      itemComponent={
+        <Button
+          variant="outlined"
+          size="large"
+          LinkComponent={Link}
+          to="/resume"
+        >
+          <ArrowBack /> VOLVER
+        </Button>
+      }
+    >
       <Spin spinning={loading}>
         <Grid container spacing={2} sx={{ mt: 1 }}>
           {data.length > 0 ? (
@@ -54,24 +49,22 @@ const Map = () => {
                     subheader={building.description}
                   />
                   <CardContent>
-                    {building.levels.map((level) => (
-                      <CustomizedAccordion title={level.name} initial={true}>
-                        {level.rooms.map((room) => (
+                    {building.levels.map((level, ind) => (
+                      <CustomizedAccordion
+                        title={level.name}
+                        initial={true}
+                        key={ind}
+                      >
+                        {level.rooms.map((room, inx) => (
                           <CustomizedAccordion
                             title={room.name}
                             initial={false}
+                            key={inx}
                           >
-                            <Grid container spacing={1}>
-                              <Grid item xs={12} xl={6}>
-                                <CustomList title="CAMAS" items={room.beds} />
-                              </Grid>
-                              <Grid item xs={12} xl={6}>
-                                <CustomList
-                                  title="EQUIPOS"
-                                  items={room.equipments}
-                                />
-                              </Grid>
-                            </Grid>
+                            <CustomList
+                              title="EQUIPOS"
+                              items={room.equipments}
+                            />
                           </CustomizedAccordion>
                         ))}
                       </CustomizedAccordion>
@@ -91,15 +84,15 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default General;
 
 const CustomList = ({ title, items }) => {
   return (
-    <Paper variant="outlined">
+    <Paper variant="outlined" sx={{ height: 300, overflowX: "auto" }}>
       <List subheader={<ListSubheader>{title}</ListSubheader>}>
         {items.length > 0 ? (
-          items.map((row) => (
-            <ListItem>
+          items.map((row, inxd) => (
+            <ListItem key={inxd}>
               <ListItemIcon>
                 <SubdirectoryArrowRight color="primary" fontSize="small" />
               </ListItemIcon>
@@ -114,7 +107,7 @@ const CustomList = ({ title, items }) => {
             <ListItemText
               primary={
                 <Empty
-                  description={`No hay ${title} registradas en esta habitación.`}
+                  description={`No hay ${title} registradas en esta UPSS.`}
                 />
               }
             />

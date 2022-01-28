@@ -82,15 +82,15 @@ const EquipmentToRoom = ({ setLoading }) => {
         data={rooms}
         value={room}
         onChange={setRoom}
-        title="HABITACIONES"
+        title="UPSS"
       />
       <TransferList
         dataLeft={dataLeft}
         setDataLeft={setDataLeft}
         dataRight={dataRight}
         setDataRight={setDataRight}
-        titleRight="Camas Asignadas"
-        titleLeft="Camas Disponibles"
+        titleRight="Equipos Asignados"
+        titleLeft="Equipos Libres"
       />
       <div align="center">
         <br />

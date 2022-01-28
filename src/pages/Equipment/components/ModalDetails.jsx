@@ -104,13 +104,13 @@ const ModalDetails = ({ open, setOpen, data, equipment }) => {
                         <Text title="Nivel" value="LUGAR" />
                       </Grid>
                       <Grid item xs={12} md={4}>
-                        <Text title="Habitación" value="LUGAR" />
+                        <Text title="UPSS" value="LUGAR" />
                       </Grid>
                     </Grid>
                   </Box>
                 </Grid>
 
-                <Title title="2. DATOS DEL BIEN (Equipo, Instalación o Ambiente)" />
+                <Title title="2. DATOS DEL BIEN" />
                 <Grid item xs={12}>
                   <Box pl={3}>
                     <Grid container>

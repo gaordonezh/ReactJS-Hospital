@@ -78,7 +78,7 @@ const BedToRoom = ({ setLoading }) => {
         data={rooms}
         value={room}
         onChange={setRoom}
-        title="HABITACIONES"
+        title="UPSS"
       />
       <TransferList
         dataLeft={dataLeft}

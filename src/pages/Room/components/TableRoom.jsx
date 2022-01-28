@@ -38,19 +38,19 @@ const TableRoom = ({ data, loading, setModal }) => {
       sorter: true,
       filter: true,
     },
-    {
-      title: "Camas",
-      dataIndex: "_id",
-      key: "_id",
-      align: "center",
-      sorter: false,
-      filter: false,
-      render: (value, row) => (
-        <Badge badgeContent={row.beds.length.toString()} color="primary">
-          <BedroomChildIcon color="primary" />
-        </Badge>
-      ),
-    },
+    // {
+    //   title: "Camas",
+    //   dataIndex: "_id",
+    //   key: "_id",
+    //   align: "center",
+    //   sorter: false,
+    //   filter: false,
+    //   render: (value, row) => (
+    //     <Badge badgeContent={row.beds.length.toString()} color="primary">
+    //       <BedroomChildIcon color="primary" />
+    //     </Badge>
+    //   ),
+    // },
     {
       title: "Equipos",
       dataIndex: "_id",

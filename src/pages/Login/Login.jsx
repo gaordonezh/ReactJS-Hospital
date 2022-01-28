@@ -5,12 +5,13 @@ import {
   Card,
   Container,
   Typography,
-  Hidden,
+  Grid,
   Stack,
   TextField,
   InputAdornment,
   IconButton,
   Button,
+  Avatar,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import SESSION_NAME from "config/session";
@@ -84,56 +85,72 @@ const Login = () => {
   };
 
   return (
-    <RootStyle title="Boletas de remuneraciones">
-      <Hidden mdDown>
-        <SectionStyle variant="outlined">
-          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Hola de nuevo
-          </Typography>
-          <img src="/htm.jpg" alt="login" width="200p" />
-        </SectionStyle>
-      </Hidden>
-
+    <RootStyle>
       <Container maxWidth="sm">
-        <Spin spinning={loading}>
-          <ContentStyle>
-            <form onSubmit={handleSubmit(handleLogin)} autoComplete="off">
-              <Stack spacing={3}>
-                <TextField
-                  fullWidth
-                  label="Usuario"
-                  error={Boolean(errors?.username ?? false)}
-                  {...register("username", { required: true })}
+        <Grid
+          container
+          sx={{ minHeight: "calc((100vh) - 35px)" }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item xs={12}>
+            <Container maxWidth="sm">
+              <Stack sx={{ mb: 5, textAlign: "center" }}>
+                <Avatar
+                  src="/static/hospital.png"
+                  alt="LOGO"
+                  sx={{ height: 150, width: 150, m: "0 auto 25px auto" }}
                 />
-                <TextField
-                  fullWidth
-                  type={show ? "text" : "password"}
-                  label="Contraseña"
-                  error={Boolean(errors?.password ?? false)}
-                  {...register("password", { required: true })}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={() => showPass(!show)}>
-                          {show ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-
-                <Button
-                  fullWidth
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                >
-                  INGRESAR
-                </Button>
+                <Typography variant="h4" gutterBottom>
+                  SISTEMA INTEGRADO DE HOSPITALES
+                </Typography>
+                <Typography sx={{ color: "text.secondary" }}>
+                  Ingrese sus credenciales...
+                </Typography>
               </Stack>
-            </form>
-          </ContentStyle>
-        </Spin>
+              <Spin spinning={loading}>
+                <form onSubmit={handleSubmit(handleLogin)} autoComplete="off">
+                  <Stack spacing={3}>
+                    <TextField
+                      fullWidth
+                      label="Usuario"
+                      error={Boolean(errors?.username ?? false)}
+                      {...register("username", { required: true })}
+                    />
+                    <TextField
+                      fullWidth
+                      type={show ? "text" : "password"}
+                      label="Contraseña"
+                      error={Boolean(errors?.password ?? false)}
+                      {...register("password", { required: true })}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton onClick={() => showPass(!show)}>
+                              {show ? (
+                                <VisibilityIcon />
+                              ) : (
+                                <VisibilityOffIcon />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <Button
+                      fullWidth
+                      size="large"
+                      type="submit"
+                      variant="contained"
+                    >
+                      INGRESAR
+                    </Button>
+                  </Stack>
+                </form>
+              </Spin>
+            </Container>
+          </Grid>
+        </Grid>
       </Container>
     </RootStyle>
   );

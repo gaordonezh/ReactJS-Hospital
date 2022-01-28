@@ -14,7 +14,11 @@ export default function Page401() {
           Lo sentimos, no tienes acceso a esta vista. ¿Quizás ha escrito mal la
           URL? Asegúrese de volver y usar la navegación.
         </Typography>
-        <Box component="img" src="/htm.jpg" sx={{ maxWidth: "100%" }} />
+        <Box
+          component="img"
+          src="/static/og_hospital.jpg"
+          sx={{ maxWidth: "100%" }}
+        />
         <Button to="/" size="large" variant="contained" component={RouterLink}>
           LLÉVAME A CASA
         </Button>

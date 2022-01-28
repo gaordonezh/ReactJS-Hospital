@@ -9,7 +9,6 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 import CarpenterIcon from "@mui/icons-material/Carpenter";
 import DoorSlidingIcon from "@mui/icons-material/DoorSliding";
-import BedIcon from "@mui/icons-material/Bed";
 import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
 import AllInboxIcon from "@mui/icons-material/AllInbox";
 import PermDataSettingIcon from "@mui/icons-material/PermDataSetting";
@@ -159,10 +158,10 @@ const itemsNav = [
     children: [
       {
         id: "map",
-        title: "General",
+        title: "Resumen",
         type: "item",
         icon: Map,
-        url: "/map",
+        url: "/resume",
         roles: ["superadmin", "admin", "logistica"],
       },
       {
@@ -183,18 +182,10 @@ const itemsNav = [
       },
       {
         id: "room",
-        title: "Habitaciones",
+        title: "UPSS",
         type: "item",
         icon: DoorSlidingIcon,
         url: "/room",
-        roles: ["superadmin", "admin", "logistica"],
-      },
-      {
-        id: "bed",
-        title: "Camas",
-        type: "item",
-        icon: BedIcon,
-        url: "/bed",
         roles: ["superadmin", "admin", "logistica"],
       },
       {

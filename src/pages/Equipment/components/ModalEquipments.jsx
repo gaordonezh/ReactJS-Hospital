@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -14,6 +14,8 @@ import {
   IconButton,
   Switch,
   FormControlLabel,
+  Chip,
+  Fab,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Spin, notification } from "antd";
@@ -21,12 +23,24 @@ import { postEquipments, putEquipments } from "requests";
 import user from "utils/userDetails";
 import CloseIcon from "@mui/icons-material/Close";
 import SelectTypeEquipment from "../../../components/selects/SelectTypeEquipment";
+import { Add } from "@mui/icons-material";
 
-const ModalEquipments = (props) => {
-  const { open, setOpen, setLoading, loading, data, reloadFunction } = props;
+const ModalEquipments = ({
+  open,
+  setOpen,
+  setLoading,
+  loading,
+  data,
+  reloadFunction,
+}) => {
   const [type, setType] = useState(Boolean(data) ? data.type : null);
   const [dates, setDates] = useState(Boolean(data) ? data.dates : []);
-  const [grt, setGrt] = useState({ active: true, start: "", end: "" });
+  const [grt, setGrt] = useState({
+    active: data ? data.garantia?.active : false,
+    start: data ? data.garantia?.start : "",
+    end: data ? data.garantia?.end : "",
+  });
+  const [insumos, setInsumos] = useState(data ? data.insumos_accesorios : []);
   const {
     register,
     handleSubmit,
@@ -41,10 +55,14 @@ const ModalEquipments = (props) => {
       }
       setLoading(true);
       if (!data) items["company"] = user.idCompany;
+      items["insumos_accesorios"] = insumos;
+      items["garantia"] = grt;
       items["type"] = type;
       items["dates"] = dates;
+
       if (data) await putEquipments(items, data._id);
       else await postEquipments(items);
+
       reloadFunction();
       setOpen({ open: false });
       notification["success"]({
@@ -66,9 +84,9 @@ const ModalEquipments = (props) => {
   };
 
   return (
-    <Dialog open={open} fullWidth maxWidth="md">
+    <Dialog open={open} fullWidth maxWidth="lg">
       <DialogTitle>
-        <Typography variant="p" align="center">
+        <Typography component="p" align="center" variant="h4">
           <b>{Boolean(data) ? "EDITAR" : "AGREGAR"} EQUIPO</b>
         </Typography>
       </DialogTitle>
@@ -81,6 +99,7 @@ const ModalEquipments = (props) => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
+                  InputLabelProps={{ shrink: true }}
                   label="NOMBRE"
                   autoFocus
                   fullWidth
@@ -91,6 +110,7 @@ const ModalEquipments = (props) => {
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
+                  InputLabelProps={{ shrink: true }}
                   label="ETIQUETA"
                   fullWidth
                   defaultValue={Boolean(data) ? data.etiqueta : ""}
@@ -100,6 +120,7 @@ const ModalEquipments = (props) => {
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
+                  InputLabelProps={{ shrink: true }}
                   label="MARCA"
                   fullWidth
                   defaultValue={Boolean(data) ? data.marca : ""}
@@ -109,6 +130,7 @@ const ModalEquipments = (props) => {
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
+                  InputLabelProps={{ shrink: true }}
                   label="MODELO"
                   fullWidth
                   defaultValue={Boolean(data) ? data.modelo : ""}
@@ -118,6 +140,7 @@ const ModalEquipments = (props) => {
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
+                  InputLabelProps={{ shrink: true }}
                   label="SERIE"
                   fullWidth
                   defaultValue={Boolean(data) ? data.serie : ""}
@@ -127,6 +150,7 @@ const ModalEquipments = (props) => {
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
+                  InputLabelProps={{ shrink: true }}
                   label="AÑO DE FABRICACIÓN"
                   fullWidth
                   type="number"
@@ -137,6 +161,7 @@ const ModalEquipments = (props) => {
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
+                  InputLabelProps={{ shrink: true }}
                   label="PRECIO"
                   fullWidth
                   type="number"
@@ -146,75 +171,152 @@ const ModalEquipments = (props) => {
                   {...register("price", { required: true, min: 0 })}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={6}>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={grt.active}
-                      onChange={(a, b) => setGrt({ ...grt, active: b })}
+              <Grid item xs={12} sm={6} md={6} container spacing={1}>
+                <Grid item xs={grt.active ? 4 : 12}>
+                  <Chip
+                    icon={<Switch checked={grt.active} />}
+                    label="¿Garantía?"
+                    sx={{ width: "100%", height: "100%" }}
+                    variant="outlined"
+                    color="primary"
+                    clickable
+                    onClick={() => setGrt({ ...grt, active: !grt.active })}
+                  />
+                </Grid>
+                {grt.active && (
+                  <Grid item xs={4}>
+                    <TextField
+                      InputLabelProps={{ shrink: true }}
+                      label="FECHA INICIO"
+                      fullWidth
+                      type="date"
+                      value={grt.start}
+                      onChange={(e) => {
+                        setGrt({ ...grt, start: e.target.value });
+                      }}
                     />
-                  }
-                  label="¿Garantía?"
-                />
+                  </Grid>
+                )}
+                {grt.active && (
+                  <Grid item xs={4}>
+                    <TextField
+                      InputLabelProps={{ shrink: true }}
+                      label="FECHA FIN"
+                      fullWidth
+                      type="date"
+                      value={grt.end}
+                      onChange={(e) => {
+                        setGrt({ ...grt, end: e.target.value });
+                      }}
+                    />
+                  </Grid>
+                )}
+              </Grid>
 
-                <TextField
-                  label="GARANTÍA"
-                  fullWidth
-                  type="number"
-                  defaultValue={Boolean(data) ? data.price : ""}
-                  error={Boolean(errors?.price ?? false)}
-                  inputProps={{ step: 0.01 }}
-                  {...register("price", { required: true, min: 0 })}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormHelperText>FECHAS DE MANTENIMIENTO</FormHelperText>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                {dates.map((el, i) => (
-                  <TextField
-                    label={`Fecha de mantenimiento ${i + 1}`}
-                    fullWidth
-                    value={el.date}
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                    sx={{ mb: 1 }}
-                    disabled={!el.status}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          {el.status && (
+              {/* INSUMOS Y ACCESORIOS */}
+
+              <Grid item xs={12} container spacing={1}>
+                <Grid item xs={12} container alignItems="center">
+                  <Fab
+                    size="small"
+                    color="secondary"
+                    onClick={() => {
+                      insumos.push("");
+                      setInsumos([...insumos]);
+                    }}
+                    sx={{ mr: 1 }}
+                  >
+                    <Add />
+                  </Fab>
+                  <Typography variant="subtitle2">
+                    <b>INSUMOS Y ACCESORIOS</b>
+                  </Typography>
+                </Grid>
+                {insumos.map((el, i) => (
+                  <Grid item xs={12} md={6} xl={4} key={i}>
+                    <TextField
+                      InputLabelProps={{ shrink: true }}
+                      label={`Fecha de mantenimiento ${i + 1}`}
+                      fullWidth
+                      value={el}
+                      InputLabelProps={{ shrink: true }}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
                             <IconButton
                               onClick={() => {
-                                dates.splice(i, 1);
-                                setDates([...dates]);
+                                insumos.splice(i, 1);
+                                setInsumos([...insumos]);
                               }}
                               color="error"
                             >
                               <CloseIcon />
                             </IconButton>
-                          )}
-                        </InputAdornment>
-                      ),
-                    }}
-                    onChange={(e) => {
-                      dates[i].date = e.target.value;
-                      setDates([...dates]);
-                    }}
-                  />
+                          </InputAdornment>
+                        ),
+                      }}
+                      onChange={(e) => {
+                        insumos[i] = e.target.value;
+                        setInsumos([...insumos]);
+                      }}
+                    />
+                  </Grid>
                 ))}
               </Grid>
-              <Grid item xs={12} align="center">
-                <Button
-                  variant="outlined"
-                  onClick={() => {
-                    dates.push({ date: "", status: true });
-                    setDates([...dates]);
-                  }}
-                >
-                  AGREGAR
-                </Button>
+
+              {/* FECHAS DE MANTENIMIENTO */}
+
+              <Grid item xs={12} container spacing={1}>
+                <Grid item xs={12} container alignItems="center">
+                  <Fab
+                    size="small"
+                    color="secondary"
+                    onClick={() => {
+                      dates.push({ date: "", status: true });
+                      setDates([...dates]);
+                    }}
+                    sx={{ mr: 1 }}
+                  >
+                    <Add />
+                  </Fab>
+                  <Typography variant="subtitle2">
+                    <b>FECHAS DE MANTENIMIENTO</b>
+                  </Typography>
+                </Grid>
+                {dates.map((el, i) => (
+                  <Grid item xs={12} md={6} lg={4} xl={3} key={i}>
+                    <TextField
+                      InputLabelProps={{ shrink: true }}
+                      label={`Fecha de mantenimiento ${i + 1}`}
+                      fullWidth
+                      value={el.date}
+                      type="date"
+                      InputLabelProps={{ shrink: true }}
+                      disabled={!el.status}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            {el.status && (
+                              <IconButton
+                                onClick={() => {
+                                  dates.splice(i, 1);
+                                  setDates([...dates]);
+                                }}
+                                color="error"
+                              >
+                                <CloseIcon />
+                              </IconButton>
+                            )}
+                          </InputAdornment>
+                        ),
+                      }}
+                      onChange={(e) => {
+                        dates[i].date = e.target.value;
+                        setDates([...dates]);
+                      }}
+                    />
+                  </Grid>
+                ))}
               </Grid>
             </Grid>
           </DialogContent>

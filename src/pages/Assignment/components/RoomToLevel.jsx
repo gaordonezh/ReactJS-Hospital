@@ -59,7 +59,7 @@ const RoomToLevel = ({ setLoading }) => {
       setLoading(true);
       await putLevels({ rooms: dataRight }, level);
       notification["success"]({
-        message: `Se asignó ${dataRight.length} habitaciones`,
+        message: `Se asignó ${dataRight.length} UPSS`,
         description: `La asignación se realizó exitosamente.`,
       });
     } catch (error) {
@@ -85,8 +85,8 @@ const RoomToLevel = ({ setLoading }) => {
         setDataLeft={setDataLeft}
         dataRight={dataRight}
         setDataRight={setDataRight}
-        titleRight="Habitaciones Asignadas"
-        titleLeft="Habitaciones Disponibles"
+        titleRight="UPSS Asignadas"
+        titleLeft="UPSS Disponibles"
       />
       <div align="center">
         <br />

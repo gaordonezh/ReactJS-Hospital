@@ -97,7 +97,7 @@ const TableMaintenance = ({ data = [], loading }) => {
       columns={columns}
       data={data}
       loading={loading}
-      pageSize={false}
+      pagination={false}
     />
   );
 };

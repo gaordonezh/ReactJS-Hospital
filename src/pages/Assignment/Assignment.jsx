@@ -3,7 +3,7 @@ import Page from "components/Page";
 import LevelToBuilding from "./components/LevelToBuilding";
 import RoomToLevel from "./components/RoomToLevel";
 import { Spin } from "antd";
-import BedToRoom from "./components/BedToRoom";
+// import BedToRoom from "./components/BedToRoom";
 import EquipmentToRoom from "./components/EquipmentToRoom";
 import CustomizedAccordion from "../../components/CustomAccordion";
 
@@ -17,17 +17,17 @@ const Assignment = () => {
           <LevelToBuilding setLoading={setLoading} />
         </Spin>
       </CustomizedAccordion>
-      <CustomizedAccordion title="ASIGNAR HABITACIONES A NIVELES">
+      <CustomizedAccordion title="ASIGNAR UPSS A NIVELES">
         <Spin spinning={loading}>
           <RoomToLevel setLoading={setLoading} />
         </Spin>
       </CustomizedAccordion>
-      <CustomizedAccordion title="ASIGNAR CAMAS A HABITACIONES">
+      {/* <CustomizedAccordion title="ASIGNAR CAMAS A UPSS">
         <Spin spinning={loading}>
           <BedToRoom setLoading={setLoading} />
         </Spin>
-      </CustomizedAccordion>
-      <CustomizedAccordion title="ASIGNAR EQUIPOS A AMBIENTES">
+      </CustomizedAccordion> */}
+      <CustomizedAccordion title="ASIGNAR EQUIPOS A UPSS">
         <Spin spinning={loading}>
           <EquipmentToRoom setLoading={setLoading} />
         </Spin>

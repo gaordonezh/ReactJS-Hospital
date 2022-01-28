@@ -55,7 +55,7 @@ const ModalRoom = (props) => {
     <Dialog open={open} fullWidth maxWidth="md">
       <DialogTitle>
         <Typography variant="subtitle1" align="center">
-          <b>{Boolean(data) ? "EDITAR" : "AGREGAR"} HABITACIÓN o AMBIENTE</b>
+          <b>{Boolean(data) ? "EDITAR" : "AGREGAR"} UPSS</b>
         </Typography>
       </DialogTitle>
       <Spin spinning={loading}>
