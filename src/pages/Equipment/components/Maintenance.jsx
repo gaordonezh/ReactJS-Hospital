@@ -59,8 +59,7 @@ const Equipment = () => {
           <Button
             variant="outlined"
             size="large"
-            component={Link}
-            to="/equipment"
+            onClick={() => window.history.back()}
           >
             VOLVER
           </Button>{" "}

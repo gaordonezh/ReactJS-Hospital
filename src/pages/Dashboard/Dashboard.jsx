@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardContent, Grid } from "@mui/material";
+import { CardContent, Grid } from "@mui/material";
 import Day from "./Day";
 import QuotesList from "./QuotesList";
 import { Spin, notification } from "antd";
 import { getDashboard } from "requests";
+import user from "utils/userDetails";
+import { useHistory } from "react-router-dom";
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     obtainData();
+    if (user.rol === "rrhh") {
+      history.push("/equipment/maintenance");
+    }
   }, []);
 
   const obtainData = async () => {

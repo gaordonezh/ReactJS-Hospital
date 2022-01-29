@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 
 // project imports
 import NavGroup from "./NavGroup";
-import itemsNav from "config/itemsNav";
+import itemsNav from "config";
 
 //-----------------------|| SIDEBAR MENU LIST ||-----------------------//
 

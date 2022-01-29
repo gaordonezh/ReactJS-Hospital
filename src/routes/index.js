@@ -66,7 +66,7 @@ const routes = [
   {
     path: "/patient",
     exact: true,
-    listRoles: ["superadmin", "admin", "rrhh", "doctor"],
+    listRoles: ["superadmin", "admin", "doctor"],
     component: Patients,
     isPrivate: true,
     name: "patient",
@@ -106,7 +106,7 @@ const routes = [
   {
     path: "/schedule",
     exact: true,
-    listRoles: ["superadmin", "admin", "rrhh"],
+    listRoles: ["superadmin", "admin"],
     component: Schedule,
     isPrivate: true,
     name: "schedule",
@@ -138,7 +138,7 @@ const routes = [
   {
     path: "/equipment/maintenance/:idequipment",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin", "rrhh"],
     component: Maintenance,
     isPrivate: true,
     name: "equipment",
@@ -146,7 +146,7 @@ const routes = [
   {
     path: "/equipment/maintenance",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin", "rrhh"],
     component: ListMaintenance,
     isPrivate: true,
     name: "equipment",

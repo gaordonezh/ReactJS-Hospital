@@ -21,7 +21,7 @@ const itemsNav = [
     id: "menu",
     type: "group",
     title: "GENERAL",
-    roles: ["superadmin", "admin", "rrhh", "logistica", "doctor"],
+    roles: ["superadmin", "admin", "logistica", "doctor"],
     children: [
       {
         id: "dashboard",
@@ -29,7 +29,7 @@ const itemsNav = [
         type: "item",
         icon: DashboardIcon,
         url: "/",
-        roles: ["superadmin", "admin", "rrhh", "logistica", "doctor"],
+        roles: ["superadmin", "admin", "logistica", "doctor"],
       },
       {
         id: "company",
@@ -45,7 +45,7 @@ const itemsNav = [
         type: "item",
         icon: PersonOutlineIcon,
         url: "/patient",
-        roles: ["superadmin", "admin", "rrhh", "doctor"],
+        roles: ["superadmin", "admin", "doctor"],
       },
       {
         id: "people",
@@ -114,7 +114,7 @@ const itemsNav = [
     id: "equipos",
     type: "group",
     title: "EQUIPOS",
-    roles: ["superadmin", "admin", "logistica"],
+    roles: ["superadmin", "admin", "rrhh"],
     children: [
       {
         id: "equipment",
@@ -130,7 +130,7 @@ const itemsNav = [
         type: "item",
         icon: PermDataSettingIcon,
         url: "/equipment/maintenance",
-        roles: ["superadmin", "admin", "logistica"],
+        roles: ["superadmin", "admin", "rrhh"],
       },
     ],
   },
