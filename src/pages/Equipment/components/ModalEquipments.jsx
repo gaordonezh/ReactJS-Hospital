@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -8,12 +8,9 @@ import {
   Grid,
   TextField,
   Typography,
-  FormHelperText,
-  Divider,
   InputAdornment,
   IconButton,
   Switch,
-  FormControlLabel,
   Chip,
   Fab,
 } from "@mui/material";
@@ -236,7 +233,7 @@ const ModalEquipments = ({
                   <Grid item xs={12} md={6} xl={4} key={i}>
                     <TextField
                       InputLabelProps={{ shrink: true }}
-                      label={`Fecha de mantenimiento ${i + 1}`}
+                      label={`Insumo o accesorio ${i + 1}`}
                       fullWidth
                       value={el}
                       InputLabelProps={{ shrink: true }}

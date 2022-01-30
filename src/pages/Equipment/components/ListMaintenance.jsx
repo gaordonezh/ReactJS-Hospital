@@ -68,9 +68,9 @@ const TableMaintenance = ({ data = [], loading }) => {
       filter: false,
     },
     {
-      title: "TIPO",
-      dataIndex: "type",
-      key: "type",
+      title: "UBICACIÓN",
+      dataIndex: "ubication",
+      key: "ubication",
       align: "center",
       filter: false,
     },
