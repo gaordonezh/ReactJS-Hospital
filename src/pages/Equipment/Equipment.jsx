@@ -15,12 +15,15 @@ import ModalEquipments from "./components/ModalEquipments";
 import { notification } from "antd";
 import TableEquipments from "./components/TableEquipments";
 import { AttachFile, Upload } from "@mui/icons-material";
+import Filters from "./components/Filters";
 
 const Equipment = () => {
   const [modal, setModal] = useState({ data: null, open: false });
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [db, setDb] = useState([]);
   const [file, setFile] = useState(null);
+  const [type, setType] = useState("TODOS");
 
   useEffect(() => {
     obtainData();
@@ -31,6 +34,7 @@ const Equipment = () => {
     try {
       const res = await getEquipments();
       setData([...res.reverse()]);
+      setDb([...res.reverse()]);
     } catch (error) {
       notification["error"]({
         message: `Oops!`,
@@ -46,9 +50,7 @@ const Equipment = () => {
     try {
       let form = new FormData();
       form.append("file", file);
-
       const res = await uploadEquipments(form);
-
       if (res.status) {
         notification["success"]({ message: res.message });
         obtainData();
@@ -63,12 +65,17 @@ const Equipment = () => {
     }
   };
 
+  useEffect(() => {
+    let result = db.filter((e) => (type === "TODOS" ? true : e.type === type));
+    setData([...result]);
+  }, [type]);
+
   return (
     <Page
-      helper="EQUIPOS"
-      title={
-        <Typography variant="inherit">
-          EQUIPOS{" "}
+      helper={<Filters type={type} setType={setType} />}
+      title={<Typography variant="inherit">EQUIPOS</Typography>}
+      itemComponent={
+        <Stack direction="row" spacing={1} alignItems="center">
           <FormHelperText
             component="a"
             href="https://res.cloudinary.com/backet-repartos/raw/upload/v1643167672/IMPORTAR_EQUIPOS_lsc6f5.xlsx"
@@ -77,10 +84,6 @@ const Equipment = () => {
           >
             <AttachFile /> PLANTILLA DE IMPORTACIÓN
           </FormHelperText>
-        </Typography>
-      }
-      itemComponent={
-        <Stack direction="row" spacing={1}>
           <TextField
             label="IMPORTACIÓN (archivo excel)"
             type="file"

@@ -32,12 +32,11 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 99,
   },
   ScrollHeight: {
-    height: "calc((100vh) - 88px)",
-    paddingLeft: "16px",
-    paddingRight: "16px",
+    height: "calc((100vh) - 90px)",
     [theme.breakpoints.down("sm")]: {
       height: "calc((100vh) - 56px)",
     },
+    overflow: "hidden",
   },
   boxContainer: {
     display: "flex",
@@ -62,14 +61,14 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
         </div>
       </Box>
       <Hidden mdUp>
-        <PerfectScrollbar component="div" className={classes.ScrollHeight}>
+        <PerfectScrollbar className={classes.ScrollHeight}>
           <MenuList />
         </PerfectScrollbar>
       </Hidden>
       <Hidden mdDown>
-        <Box sx={{ px: 2, mb:10 }}>
+        <PerfectScrollbar className={classes.ScrollHeight}>
           <MenuList />
-        </Box>
+        </PerfectScrollbar>
       </Hidden>
     </React.Fragment>
   );

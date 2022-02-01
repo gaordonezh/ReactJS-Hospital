@@ -99,7 +99,7 @@ const TableEquipments = ({ data, loading, setModal }) => {
               );
             })
           ) : (
-            <FormHelperText error>
+            <FormHelperText sx={{ color: "warning.main" }}>
               <b>NO HAY FECHAS DE MANTENIMIENTO</b>
             </FormHelperText>
           )}

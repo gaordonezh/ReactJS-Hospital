@@ -19,6 +19,7 @@ import { getDays, postDays, putDays, getFreeDays } from "./day";
 import { getQuotes, getQuoteByUser, postQuotes, putQuotes } from "./quote";
 import { getBuildings, getMap, postBuildings, putBuildings } from "./building";
 import { getLevels, postLevels, putLevels, getLevelsByBuilding } from "./level";
+import { getUpss, postUpss, getUpssByCompany, putUpss } from "./upss";
 import { getRooms, postRooms, putRooms, getRoomByLevel } from "./room";
 import { getBeds, postBeds, putBeds, getBedsByRoom } from "./bed";
 import {
@@ -82,6 +83,11 @@ export {
   getLevelsByBuilding,
   postLevels,
   putLevels,
+  // UPSS
+  getUpss,
+  postUpss,
+  getUpssByCompany,
+  putUpss,
   // ROOM
   getRooms,
   postRooms,

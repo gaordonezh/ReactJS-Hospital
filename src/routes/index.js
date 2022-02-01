@@ -36,7 +36,13 @@ const BuildingMap = Loadable(
   lazy(() => import("pages/Resumen/components/Building"))
 );
 const Levels = Loadable(lazy(() => import("pages/Resumen/components/Levels")));
-const UPSS = Loadable(lazy(() => import("pages/Resumen/components/UPSS")));
+const Ambientes = Loadable(
+  lazy(() => import("pages/Resumen/components/Ambientes"))
+);
+const Upss = Loadable(lazy(() => import("pages/Upss")));
+const ResumeUPSS = Loadable(
+  lazy(() => import("pages/Resumen/components/UPSS"))
+);
 
 const routes = [
   {
@@ -50,7 +56,7 @@ const routes = [
   {
     path: "/",
     exact: true,
-    listRoles: ["superadmin", "admin", "rrhh", "logistica", "doctor"],
+    listRoles: ["superadmin", "admin", "rrhh", "doctor"],
     component: Dashboard,
     isPrivate: true,
     name: "app",
@@ -130,7 +136,7 @@ const routes = [
   {
     path: "/equipment",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: Equipment,
     isPrivate: true,
     name: "equipment",
@@ -154,7 +160,7 @@ const routes = [
   {
     path: "/insumos",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: Insumos,
     isPrivate: true,
     name: "insumos",
@@ -162,7 +168,7 @@ const routes = [
   {
     path: "/resume",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: Resumen,
     isPrivate: true,
     name: "resume",
@@ -170,7 +176,7 @@ const routes = [
   {
     path: "/resume/general",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: General,
     isPrivate: true,
     name: "resume",
@@ -178,7 +184,7 @@ const routes = [
   {
     path: "/resume/buildings",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: BuildingMap,
     isPrivate: true,
     name: "resume",
@@ -186,7 +192,7 @@ const routes = [
   {
     path: "/resume/levels",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: Levels,
     isPrivate: true,
     name: "resume",
@@ -194,15 +200,23 @@ const routes = [
   {
     path: "/resume/upss",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
-    component: UPSS,
+    listRoles: ["superadmin", "admin"],
+    component: ResumeUPSS,
+    isPrivate: true,
+    name: "resumeupss",
+  },
+  {
+    path: "/resume/ambientes",
+    exact: true,
+    listRoles: ["superadmin", "admin"],
+    component: Ambientes,
     isPrivate: true,
     name: "resume",
   },
   {
     path: "/building",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: Building,
     isPrivate: true,
     name: "building",
@@ -210,15 +224,23 @@ const routes = [
   {
     path: "/level",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: Level,
     isPrivate: true,
     name: "level",
   },
   {
+    path: "/upss",
+    exact: true,
+    listRoles: ["superadmin", "admin"],
+    component: Upss,
+    isPrivate: true,
+    name: "upss",
+  },
+  {
     path: "/room",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: Room,
     isPrivate: true,
     name: "room",
@@ -226,7 +248,7 @@ const routes = [
   {
     path: "/bed",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: Bed,
     isPrivate: true,
     name: "bed",
@@ -234,7 +256,7 @@ const routes = [
   {
     path: "/assignment",
     exact: true,
-    listRoles: ["superadmin", "admin", "logistica"],
+    listRoles: ["superadmin", "admin"],
     component: Assignment,
     isPrivate: true,
     name: "assignment",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Dialog,
   DialogActions,
@@ -11,13 +11,11 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Spin, notification } from "antd";
-import { postRooms, putRooms } from "requests";
-import SelectTypeRoom from "../../../components/selects/SelectTypeRoom";
+import { postUpss, putUpss } from "requests";
 import user from "utils/userDetails";
 
-const ModalRoom = (props) => {
+const ModalUpss = (props) => {
   const { open, setOpen, setLoading, loading, data, reloadFunction } = props;
-  const [type, setType] = useState(Boolean(data) ? data.type : null);
   const {
     register,
     handleSubmit,
@@ -27,15 +25,14 @@ const ModalRoom = (props) => {
   const sendRegister = async (items) => {
     setLoading(true);
     try {
-      items["type"] = type;
       if (!data) items["company"] = user.idCompany;
-      if (data) await putRooms(items, data._id);
-      else await postRooms(items);
+      if (data) await putUpss(items, data._id);
+      else await postUpss(items);
       reloadFunction();
       setOpen({ open: false });
       notification["success"]({
         message: `Éxito!`,
-        description: `El edificio se ${
+        description: `El nivel se ${
           Boolean(data) ? "actualizó" : "registró"
         } correctamente.`,
       });
@@ -55,7 +52,7 @@ const ModalRoom = (props) => {
     <Dialog open={open} fullWidth maxWidth="md">
       <DialogTitle>
         <Typography variant="subtitle1" align="center">
-          <b>{Boolean(data) ? "EDITAR" : "AGREGAR"} Ambientes</b>
+          <b>{Boolean(data) ? "EDITAR" : "AGREGAR"} UPSS</b>
         </Typography>
       </DialogTitle>
       <Spin spinning={loading}>
@@ -81,9 +78,6 @@ const ModalRoom = (props) => {
                   {...register("description", { required: false })}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <SelectTypeRoom value={type} onChange={setType} />
-              </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>
@@ -104,4 +98,4 @@ const ModalRoom = (props) => {
   );
 };
 
-export default ModalRoom;
+export default ModalUpss;

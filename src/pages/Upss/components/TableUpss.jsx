@@ -3,7 +3,7 @@ import CustomTable from "components/CustomTable";
 import { ButtonGroup, Button, Badge } from "@mui/material";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 
-const TableLevel = ({ data, loading, setModal }) => {
+const TableUpss = ({ data, loading, setModal }) => {
   const columns = [
     {
       title: "Nombre",
@@ -22,7 +22,7 @@ const TableLevel = ({ data, loading, setModal }) => {
       filter: true,
     },
     {
-      title: "Ambiente",
+      title: "Ambientes",
       dataIndex: "_id",
       key: "_id",
       align: "center",
@@ -59,4 +59,4 @@ const TableLevel = ({ data, loading, setModal }) => {
   );
 };
 
-export default TableLevel;
+export default TableUpss;

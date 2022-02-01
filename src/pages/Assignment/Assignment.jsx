@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Page from "components/Page";
 import LevelToBuilding from "./components/LevelToBuilding";
 import RoomToLevel from "./components/RoomToLevel";
+import RoomToUpss from "./components/RoomToUpss";
 import { Spin } from "antd";
 // import BedToRoom from "./components/BedToRoom";
 import EquipmentToRoom from "./components/EquipmentToRoom";
@@ -17,17 +18,22 @@ const Assignment = () => {
           <LevelToBuilding setLoading={setLoading} />
         </Spin>
       </CustomizedAccordion>
-      <CustomizedAccordion title="ASIGNAR UPSS A NIVELES">
+      <CustomizedAccordion title="ASIGNAR AMBIENTES A NIVELES">
         <Spin spinning={loading}>
           <RoomToLevel setLoading={setLoading} />
         </Spin>
       </CustomizedAccordion>
-      {/* <CustomizedAccordion title="ASIGNAR CAMAS A UPSS">
+      <CustomizedAccordion title="ASIGNAR AMBIENTES A UPSS">
+        <Spin spinning={loading}>
+          <RoomToUpss setLoading={setLoading} />
+        </Spin>
+      </CustomizedAccordion>
+      {/* <CustomizedAccordion title="ASIGNAR CAMAS A AMBIENTES">
         <Spin spinning={loading}>
           <BedToRoom setLoading={setLoading} />
         </Spin>
       </CustomizedAccordion> */}
-      <CustomizedAccordion title="ASIGNAR EQUIPOS A UPSS">
+      <CustomizedAccordion title="ASIGNAR EQUIPOS A AMBIENTES">
         <Spin spinning={loading}>
           <EquipmentToRoom setLoading={setLoading} />
         </Spin>

@@ -12,7 +12,7 @@ import DoorSlidingIcon from "@mui/icons-material/DoorSliding";
 import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
 import AllInboxIcon from "@mui/icons-material/AllInbox";
 import PermDataSettingIcon from "@mui/icons-material/PermDataSetting";
-import { Map } from "@mui/icons-material";
+import { Map, AccountTree } from "@mui/icons-material";
 
 //-----------------------|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||-----------------------//
 
@@ -154,7 +154,7 @@ const itemsNav = [
     id: "config",
     type: "group",
     title: "CONFIGURACIÓN",
-    roles: ["superadmin", "admin", "logistica"],
+    roles: ["superadmin", "admin"],
     children: [
       {
         id: "map",
@@ -162,7 +162,7 @@ const itemsNav = [
         type: "item",
         icon: Map,
         url: "/resume",
-        roles: ["superadmin", "admin", "logistica"],
+        roles: ["superadmin", "admin"],
       },
       {
         id: "building",
@@ -170,7 +170,7 @@ const itemsNav = [
         type: "item",
         icon: DomainIcon,
         url: "/building",
-        roles: ["superadmin", "admin", "logistica"],
+        roles: ["superadmin", "admin"],
       },
       {
         id: "level",
@@ -178,15 +178,23 @@ const itemsNav = [
         type: "item",
         icon: AlignHorizontalLeftIcon,
         url: "/level",
-        roles: ["superadmin", "admin", "logistica"],
+        roles: ["superadmin", "admin"],
+      },
+      {
+        id: "upss",
+        title: "UPSS",
+        type: "item",
+        icon: AccountTree,
+        url: "/upss",
+        roles: ["superadmin", "admin"],
       },
       {
         id: "room",
-        title: "UPSS",
+        title: "Ambientes",
         type: "item",
         icon: DoorSlidingIcon,
         url: "/room",
-        roles: ["superadmin", "admin", "logistica"],
+        roles: ["superadmin", "admin"],
       },
       {
         id: "assignment",
@@ -194,7 +202,7 @@ const itemsNav = [
         type: "item",
         icon: AutoAwesomeMosaicIcon,
         url: "/assignment",
-        roles: ["superadmin", "admin", "logistica"],
+        roles: ["superadmin", "admin"],
       },
     ],
   },

@@ -104,7 +104,7 @@ const ModalDetails = ({ open, setOpen, data, equipment }) => {
                         <Text title="Nivel" value="LUGAR" />
                       </Grid>
                       <Grid item xs={12} md={4}>
-                        <Text title="UPSS" value="LUGAR" />
+                        <Text title="Ambiente" value="LUGAR" />
                       </Grid>
                     </Grid>
                   </Box>

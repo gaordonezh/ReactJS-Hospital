@@ -4,6 +4,7 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import HouseSidingIcon from "@mui/icons-material/HouseSiding";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import AppsIcon from '@mui/icons-material/Apps';
 import {
   Card,
   CardActionArea,
@@ -18,7 +19,8 @@ const list = [
   { label: "GENERAL", link: "/resume/general", icon: AccountTreeIcon },
   { label: "EDIFICIOS", link: "/resume/buildings", icon: CorporateFareIcon },
   { label: "NIVELES", link: "/resume/levels", icon: HouseSidingIcon },
-  { label: "UPSS", link: "/resume/upss", icon: MeetingRoomIcon },
+  { label: "UPSS", link: "/resume/upss", icon: AppsIcon },
+  { label: "AMBIENTES", link: "/resume/ambientes", icon: MeetingRoomIcon },
 ];
 
 const Resumen = () => {

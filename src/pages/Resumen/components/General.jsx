@@ -107,7 +107,7 @@ const CustomList = ({ title, items }) => {
             <ListItemText
               primary={
                 <Empty
-                  description={`No hay ${title} registradas en esta UPSS.`}
+                  description={`No hay ${title} registradas en esta Ambientes.`}
                 />
               }
             />

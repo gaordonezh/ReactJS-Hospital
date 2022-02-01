@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Page from "components/Page";
 import {
   Button,
@@ -15,11 +15,30 @@ import {
 } from "@mui/material";
 import { ArrowBack, SubdirectoryArrowRight } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import useLocation from "hooks/useLocation";
-import { Empty, Spin } from "antd";
+import { Empty, notification, Spin } from "antd";
+import { getUpss } from "requests";
 
 const UPSS = () => {
-  const { data, loading } = useLocation();
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    obtainData();
+  }, []);
+
+  const obtainData = async () => {
+    try {
+      setLoading(true);
+      const res = await getUpss();
+      setData([...res]);
+    } catch (error) {
+      notification["error"]({
+        message: `Ocurrió un error al realizar la operación.`,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Page
@@ -37,58 +56,53 @@ const UPSS = () => {
       }
     >
       <Spin spinning={loading}>
-        <Container maxWidth="lg" sx={{ mt: 2 }}>
+        <Container maxWidth="md" sx={{ mt: 2 }}>
           <Card>
             <CardContent>
               <Grid container spacing={2}>
                 {data.length > 0 ? (
-                  data.map((e, index) =>
-                    e.levels.map((l, inx) =>
-                      l.rooms.map((r, indx) => (
-                        <Grid
-                          item
-                          xs={12}
-                          md={6}
-                          xl={4}
-                          key={index + inx + indx}
-                          sx={{
-                            borderBottom: "1px solid #eee",
-                            borderLeft: "1px solid #eee",
-                            borderRight: "1px solid #eee",
-                          }}
-                        >
-                          <List>
-                            <ListItem>
-                              <ListItemText
-                                primary={
-                                  <Stack spacing={1}>
-                                    <Typography variant="subtitle1">
-                                      {r.name} {r.description}
-                                    </Typography>
-                                    {r.equipments.length > 0 ? (
-                                      r.equipments.map((eq, idx) => (
+                  data.map((l, index) => (
+                    <Grid item xs={12} md={6} key={index}>
+                      <List>
+                        <ListItem divider>
+                          <ListItemText
+                            primary={
+                              <Stack spacing={1}>
+                                <Typography variant="subtitle1">
+                                  <b>
+                                    {l.name} {l.description}
+                                  </b>
+                                </Typography>
+                                {l.rooms.map((r, inx) => (
+                                  <Typography
+                                    key={inx}
+                                    sx={{ fontSize: 13 }}
+                                    component={Grid}
+                                    container
+                                  >
+                                    <SubdirectoryArrowRight fontSize="small" />
+                                    {r.name} {r.description}
+                                    {r.equipments.map((e) => (
+                                      <Grid item xs={12}>
                                         <FormHelperText
-                                          key={idx}
-                                          sx={{ fontSize: 13 }}
+                                          sx={{ pl: 2 }}
                                           component={Grid}
                                           container
                                         >
-                                          <SubdirectoryArrowRight fontSize="small" />
-                                          {eq.name}
+                                          <SubdirectoryArrowRight fontSize="small" />{" "}
+                                          {e.name}
                                         </FormHelperText>
-                                      ))
-                                    ) : (
-                                      <Empty description="No hay equipos registrados en esta UPSS" />
-                                    )}
-                                  </Stack>
-                                }
-                              />
-                            </ListItem>
-                          </List>
-                        </Grid>
-                      ))
-                    )
-                  )
+                                      </Grid>
+                                    ))}
+                                  </Typography>
+                                ))}
+                              </Stack>
+                            }
+                          />
+                        </ListItem>
+                      </List>
+                    </Grid>
+                  ))
                 ) : (
                   <Grid item xs={12} align="center">
                     <Empty description="AQUÍ SE MOSTRARÁN LOS UPSS REGISTRADOS" />

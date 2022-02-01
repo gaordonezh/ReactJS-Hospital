@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import TableRoom from "./components/TableRoom";
+import TableUpss from "./components/TableUpss";
 import Page from "components/Page";
-import ModalRoom from "./components/ModalRoom";
-import { getRooms } from "requests";
+import ModalUpss from "./components/ModalUpss";
+import { getUpss } from "requests";
 import { notification } from "antd";
 
-const Room = () => {
+const Upss = () => {
   const [modal, setModal] = useState({ open: false, data: null });
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -18,7 +18,7 @@ const Room = () => {
   const obtainData = async () => {
     setLoading(true);
     try {
-      const res = await getRooms();
+      const res = await getUpss();
       setData(res);
     } catch (error) {
       notification["error"]({
@@ -33,7 +33,7 @@ const Room = () => {
   return (
     <Page
       helper="CONFIGURACIÓN"
-      title="Ambientes"
+      title="UPSS"
       itemComponent={
         <Button
           variant="contained"
@@ -45,9 +45,9 @@ const Room = () => {
       }
     >
       <br />
-      <TableRoom loading={loading} data={data} setModal={setModal} />
+      <TableUpss loading={loading} data={data} setModal={setModal} />
       {modal.open && (
-        <ModalRoom
+        <ModalUpss
           open={modal.open}
           setOpen={setModal}
           loading={loading}
@@ -60,4 +60,4 @@ const Room = () => {
   );
 };
 
-export default Room;
+export default Upss;

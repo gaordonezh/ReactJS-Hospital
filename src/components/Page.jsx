@@ -17,10 +17,8 @@ const Page = (props) => {
         <Box p={2}>
           <Grid container justifyContent="space-between">
             <Grid item>
-              <Typography gutterBottom component="p">
-                <FormHelperText component="span">
-                  {helper && helper.toUpperCase()}
-                </FormHelperText>
+              <Typography gutterBottom component="div">
+                <FormHelperText component="div">{helper}</FormHelperText>
               </Typography>
               <Typography variant="h5">
                 <b>{title}</b>

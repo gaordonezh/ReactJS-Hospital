@@ -52,7 +52,7 @@ const ModalLevel = (props) => {
     <Dialog open={open} fullWidth maxWidth="md">
       <DialogTitle>
         <Typography variant="subtitle1" align="center">
-          <b>{Boolean(data) ? "EDITAR" : "AGREGAR"} EDIFICIO</b>
+          <b>{Boolean(data) ? "EDITAR" : "AGREGAR"} NIVEL</b>
         </Typography>
       </DialogTitle>
       <Spin spinning={loading}>
