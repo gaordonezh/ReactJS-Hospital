@@ -26,18 +26,13 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import EditIcon from "@mui/icons-material/Edit";
 import { notification, Spin } from "antd";
 
-const UserSchedules = ({
-  horarios,
-  users,
-  setLoading,
-  refresh,
-  loading,
-  schedules,
-}) => {
+const UserSchedules = ({ horarios, users, setLoading, refresh, loading, schedules }) => {
   const [modalSchedule, setModalSchedule] = useState({
     open: false,
     data: null,
   });
+
+  console.log(schedules);
 
   return (
     <Fragment>
@@ -76,7 +71,7 @@ const UserSchedules = ({
               {schedules.map((el, index) => (
                 <TableRow key={index}>
                   <TableCell component="th" scope="row">
-                    {el.user.f_name} {el.user.l_name}
+                    {el.user?.f_name ?? "-"} {el.user?.l_name ?? ""}
                   </TableCell>
                   <TableCell align="center">
                     {el.schedule.start}
@@ -118,9 +113,7 @@ const UserSchedules = ({
             </TableBody>
           ) : (
             <caption>
-              <div align="center">
-                AQUÍ SE MOSTRARÁ LA PROGRAMACIÓN DE HORARIOS
-              </div>
+              <div align="center">AQUÍ SE MOSTRARÁ LA PROGRAMACIÓN DE HORARIOS</div>
             </caption>
           )}
         </Table>
@@ -151,16 +144,7 @@ const Option = ({ check }) => {
   );
 };
 
-const ModalSchedules = ({
-  open,
-  setOpen,
-  horarios,
-  users,
-  setLoading,
-  refresh,
-  loading,
-  data,
-}) => {
+const ModalSchedules = ({ open, setOpen, horarios, users, setLoading, refresh, loading, data }) => {
   const [week, setWeek] = useState([
     {
       label: "LUNES",
@@ -198,10 +182,8 @@ const ModalSchedules = ({
       selected: Boolean(data) ? data.sunday : false,
     },
   ]);
-  const [schedule, setSchedule] = useState(
-    Boolean(data) ? data.schedule._id : null
-  );
-  const [user, setUser] = useState(Boolean(data) ? data.user._id : null);
+  const [schedule, setSchedule] = useState(Boolean(data) ? data.schedule._id : null);
+  const [user, setUser] = useState(Boolean(data) ? data.user?._id ?? null : null);
 
   const handleChange = (index) => {
     week[index].selected = !week[index].selected;
@@ -263,19 +245,11 @@ const ModalSchedules = ({
         <Spin spinning={loading}>
           <Grid container spacing={1} justifyContent="center">
             <Grid item xs={12}>
-              <SelectSchedule
-                data={horarios}
-                value={schedule}
-                onChange={(e) => setSchedule(e)}
-              />
+              <SelectSchedule data={horarios} value={schedule} onChange={(e) => setSchedule(e)} />
             </Grid>
             {!Boolean(data) && (
               <Grid item xs={12}>
-                <SelectUsers
-                  data={users}
-                  value={user}
-                  onChange={(e) => setUser(e)}
-                />
+                <SelectUsers data={users} value={user} onChange={(e) => setUser(e)} />
               </Grid>
             )}
             <Grid item xs={12}>
@@ -298,11 +272,7 @@ const ModalSchedules = ({
         </Spin>
       </DialogContent>
       <DialogActions>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => setOpen({ open: false })}
-        >
+        <Button variant="outlined" color="secondary" onClick={() => setOpen({ open: false })}>
           CANCELAR
         </Button>
         <Button variant="contained" onClick={saveDays}>

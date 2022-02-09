@@ -3,9 +3,12 @@ import CustomTable from "components/CustomTable";
 import { ButtonGroup, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalUser from "./ModalUser";
+import { Delete } from "@mui/icons-material";
+import ModalConfirmDelete from "components/ModalConfirmDelete";
 
 const TableUser = ({ data = [], loading, setLoading, reloadFunction, rol }) => {
   const [editUser, setEditUser] = useState({ open: false, data: null });
+  const [del, setDel] = useState({ open: false, id: null });
 
   const columns = [
     {
@@ -89,11 +92,11 @@ const TableUser = ({ data = [], loading, setLoading, reloadFunction, rol }) => {
       align: "center",
       render: (text, record) => (
         <ButtonGroup size="small">
-          <Button
-            color="primary"
-            onClick={() => setEditUser({ data: record, open: true })}
-          >
+          <Button color="primary" onClick={() => setEditUser({ data: record, open: true })}>
             <EditIcon />
+          </Button>
+          <Button color="error" onClick={() => setDel({ id: text, open: true })}>
+            <Delete />
           </Button>
         </ButtonGroup>
       ),
@@ -112,6 +115,15 @@ const TableUser = ({ data = [], loading, setLoading, reloadFunction, rol }) => {
           reloadFunction={reloadFunction}
           data={editUser.data}
           rol={rol}
+        />
+      )}
+
+      {del.open && (
+        <ModalConfirmDelete
+          open={del.open}
+          setOpen={setDel}
+          handleRefresh={reloadFunction}
+          endpoint={`users/${del.id}`}
         />
       )}
     </Fragment>

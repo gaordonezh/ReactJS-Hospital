@@ -29,6 +29,7 @@ import {
   Select,
   MenuItem,
   CardContent,
+  Switch,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
@@ -49,17 +50,8 @@ const statusList = [
 const listTM = ["Programado", "Imprevisto"];
 const listOTM = ["Preventivo", "Correctivo"];
 const listPrioridad = ["Muy urgente", "Urgente", "Necesario"];
-const listTipoAtencion = [
-  "RRHH Propios",
-  "Servicios mano de obra",
-  "Servicio a todo costo",
-];
-const listTipoEquipamiento = [
-  "Biomédico",
-  "Electromecánido",
-  "Instalaciones",
-  "Infraestructura",
-];
+const listTipoAtencion = ["RRHH Propios", "Servicios mano de obra", "Servicio a todo costo"];
+const listTipoEquipamiento = ["Biomédico", "Electromecánido", "Instalaciones", "Infraestructura"];
 const listTF = [
   { label: "Eléctrica", check: false },
   { label: "Mecánica", check: false },
@@ -68,43 +60,27 @@ const listTF = [
   { label: "Otros", check: false },
 ];
 
-const ModalMaintenance = ({
-  open,
-  setOpen,
-  data,
-  equipment,
-  refreshFunction,
-}) => {
+const ModalMaintenance = ({ open, setOpen, data, equipment, refreshFunction }) => {
   const flg = Boolean(data);
   const [date, setDate] = useState("");
   const [tipoFalla, setTipoFalla] = useState(flg ? data.tipo_falla : listTF);
   const [insumos, setInsumos] = useState([]);
   const [programmed, setProgrammed] = useState(flg ? data.programmed : false);
   const [loading, setLoading] = useState(false);
-  const [statusStart, setStatusStart] = useState(
-    flg ? data.status_start : statusList[0]
-  );
-  const [statusEnd, setStatusEnd] = useState(
-    flg ? data.status_end : statusList[0]
-  );
+  const [statusStart, setStatusStart] = useState(flg ? data.status_start : statusList[0]);
+  const [statusEnd, setStatusEnd] = useState(flg ? data.status_end : statusList[0]);
   const [tipo_mantenimiento, setTipo_mantenimiento] = useState(
     flg ? data.tipo_mantenimiento : listTM[0]
   );
   const [otm, setOtm] = useState(flg ? data.tipo_otm : listOTM[0]);
-  const [prioridad, setPrioridad] = useState(
-    flg ? data.prioridad : listPrioridad[0]
-  );
-  const [tAtencion, setTAtencion] = useState(
-    flg ? data.tipo_atencion : listTipoAtencion[0]
-  );
+  const [prioridad, setPrioridad] = useState(flg ? data.prioridad : listPrioridad[0]);
+  const [tAtencion, setTAtencion] = useState(flg ? data.tipo_atencion : listTipoAtencion[0]);
   const [tEquipamento, setTEquipamento] = useState(
     flg ? data.tipo_equipamiento : listTipoEquipamiento[0]
   );
   const [actions, setActions] = useState(flg ? data.actividades_list : []);
   const [garantia, setGarantia] = useState(flg ? data.garantia : false);
-  const [interrupcion, setInterrupcion] = useState(
-    flg ? data.interrupcion : false
-  );
+  const [interrupcion, setInterrupcion] = useState(flg ? data.interrupcion : false);
   const [rcrss, setRcrss] = useState(flg ? data.recursos : []);
   const [rrhh, setRrhh] = useState(flg ? data.rrhh : []);
   const {
@@ -156,9 +132,7 @@ const ModalMaintenance = ({
 
       setOpen({ open: false });
       notification["success"]({
-        message: `El mantenimiento se ${
-          flg ? "actualizó" : "guardó"
-        } correctamente`,
+        message: `El mantenimiento se ${flg ? "actualizó" : "guardó"} correctamente`,
       });
     } catch (error) {
       notification["error"]({
@@ -289,45 +263,57 @@ const ModalMaintenance = ({
                 <Box p={5}>
                   <Grid container spacing={2}>
                     {!flg && (
-                      <Grid item xs={12}>
-                        <FormControl fullWidth>
-                          <InputLabel>
-                            <Typography color={view ? "text.primary" : "error"}>
-                              {view ? (
-                                "FECHA DE MANTENIMIENTO"
-                              ) : (
-                                <b>
-                                  NO HAY FECHAS DE MANTENIMIENTO REGISTRADAS
-                                </b>
-                              )}
-                            </Typography>
-                          </InputLabel>
-                          {view && (
-                            <Select
-                              value={date}
-                              onChange={(e) => setDate(e.target.value)}
-                            >
-                              {equipment.dates.map(
-                                (el, i) =>
-                                  el.status && (
+                      <Fragment>
+                        <Grid item xs={12} md={8}>
+                          <FormControl fullWidth>
+                            <InputLabel>
+                              <Typography color={view ? "text.primary" : "error"}>
+                                {view ? (
+                                  "FECHA DE MANTENIMIENTO"
+                                ) : (
+                                  <b>NO HAY FECHAS DE MANTENIMIENTO REGISTRADAS</b>
+                                )}
+                              </Typography>
+                            </InputLabel>
+                            {view && (
+                              <Select value={date} onChange={(e) => setDate(e.target.value)}>
+                                <MenuItem value="">- Ninguno -</MenuItem>
+                                {equipment.dates
+                                  .filter((e) => e.status)
+                                  .map((el, i) => (
                                     <MenuItem key={i} value={el.date}>
                                       {el.date}
                                     </MenuItem>
-                                  )
-                              )}
-                            </Select>
-                          )}
-                        </FormControl>
-                      </Grid>
+                                  ))}
+                              </Select>
+                            )}
+                          </FormControl>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                          md={4}
+                          container
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          <FormControlLabel
+                            control={
+                              <Checkbox checked={programmed} onChange={(a, b) => setProgrammed(b)} />
+                            }
+                            label="NO PROGRAMADO"
+                          />
+                        </Grid>
+                      </Fragment>
                     )}
-                    {(date || flg) && (
+                    {(date || flg || programmed) && (
                       <Fragment>
                         <Title
                           title="3. DATOS DE LA SOLICITUD"
                           helper={
                             <span>
                               (solo para actividades no programadas){" "}
-                              <FormControlLabel
+                              {/* <FormControlLabel
                                 control={
                                   <Checkbox
                                     checked={programmed}
@@ -335,7 +321,7 @@ const ModalMaintenance = ({
                                   />
                                 }
                                 label={programmed ? "SI" : "NO"}
-                              />{" "}
+                              />{" "} */}
                             </span>
                           }
                         />
@@ -369,9 +355,7 @@ const ModalMaintenance = ({
                                 fullWidth
                                 type="date"
                                 defaultValue={flg ? data.date_conformidad : ""}
-                                error={Boolean(
-                                  errors?.date_conformidad ?? false
-                                )}
+                                error={Boolean(errors?.date_conformidad ?? false)}
                                 {...register("date_conformidad", {
                                   required: false,
                                 })}
@@ -394,12 +378,8 @@ const ModalMaintenance = ({
                           <TextField
                             label="Ejecutor del mantenimiento"
                             fullWidth
-                            defaultValue={
-                              flg ? data.ejecutor_mantenimiento : ""
-                            }
-                            error={Boolean(
-                              errors?.ejecutor_mantenimiento ?? false
-                            )}
+                            defaultValue={flg ? data.ejecutor_mantenimiento : ""}
+                            error={Boolean(errors?.ejecutor_mantenimiento ?? false)}
                             {...register("ejecutor_mantenimiento", {
                               required: true,
                             })}
@@ -418,9 +398,7 @@ const ModalMaintenance = ({
                         </Grid>
                         <Grid item xs={12}>
                           <FormControl component="fieldset">
-                            <FormLabel component="legend">
-                              Estado Inicial
-                            </FormLabel>
+                            <FormLabel component="legend">Estado Inicial</FormLabel>
                             <RadioGroup
                               row
                               value={statusStart}
@@ -439,9 +417,7 @@ const ModalMaintenance = ({
                         </Grid>
                         <Grid item xs={12}>
                           <FormControl component="fieldset" variant="standard">
-                            <FormLabel component="legend">
-                              Tipo de falla
-                            </FormLabel>
+                            <FormLabel component="legend">Tipo de falla</FormLabel>
                             <FormGroup row>
                               {tipoFalla.map((el, index) => (
                                 <FormControlLabel
@@ -462,9 +438,7 @@ const ModalMaintenance = ({
                         <Title title="5. DATOS GENERALES DE LA ORDEN DEL TRABAJO DE MANTENIMIENTO" />
                         <Grid item xs={12} sm={6} md={4} lg={2}>
                           <FormControl component="fieldset">
-                            <FormLabel component="legend">
-                              Tipo de mantenimiento
-                            </FormLabel>
+                            <FormLabel component="legend">Tipo de mantenimiento</FormLabel>
                             <RadioGroup
                               value={tipo_mantenimiento}
                               onChange={(a, b) => setTipo_mantenimiento(b)}
@@ -483,10 +457,7 @@ const ModalMaintenance = ({
                         <Grid item xs={12} sm={6} md={4} lg={2}>
                           <FormControl component="fieldset">
                             <FormLabel component="legend">Tipo OTM</FormLabel>
-                            <RadioGroup
-                              value={otm}
-                              onChange={(a, b) => setOtm(b)}
-                            >
+                            <RadioGroup value={otm} onChange={(a, b) => setOtm(b)}>
                               {listOTM.map((el, index) => (
                                 <FormControlLabel
                                   key={index}
@@ -501,10 +472,7 @@ const ModalMaintenance = ({
                         <Grid item xs={12} sm={6} md={4} lg={2}>
                           <FormControl component="fieldset">
                             <FormLabel component="legend">Prioridad</FormLabel>
-                            <RadioGroup
-                              value={prioridad}
-                              onChange={(a, b) => setPrioridad(b)}
-                            >
+                            <RadioGroup value={prioridad} onChange={(a, b) => setPrioridad(b)}>
                               {listPrioridad.map((el, index) => (
                                 <FormControlLabel
                                   key={index}
@@ -518,13 +486,8 @@ const ModalMaintenance = ({
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3}>
                           <FormControl component="fieldset">
-                            <FormLabel component="legend">
-                              Tipo de atención
-                            </FormLabel>
-                            <RadioGroup
-                              value={tAtencion}
-                              onChange={(a, b) => setTAtencion(b)}
-                            >
+                            <FormLabel component="legend">Tipo de atención</FormLabel>
+                            <RadioGroup value={tAtencion} onChange={(a, b) => setTAtencion(b)}>
                               {listTipoAtencion.map((el, index) => (
                                 <FormControlLabel
                                   key={index}
@@ -538,9 +501,7 @@ const ModalMaintenance = ({
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3}>
                           <FormControl component="fieldset">
-                            <FormLabel component="legend">
-                              Tipo de equipamiento
-                            </FormLabel>
+                            <FormLabel component="legend">Tipo de equipamiento</FormLabel>
                             <RadioGroup
                               value={tEquipamento}
                               onChange={(a, b) => setTEquipamento(b)}
@@ -559,11 +520,7 @@ const ModalMaintenance = ({
                         <Title title="6. DATOS GENERALES DE LA EJECUCIÓN" />
                         <Grid item xs={12}>
                           <List
-                            subheader={
-                              <ListSubheader>
-                                ACTIVIDADES EJECUTADAS
-                              </ListSubheader>
-                            }
+                            subheader={<ListSubheader>ACTIVIDADES EJECUTADAS</ListSubheader>}
                             dense
                           >
                             {actions.map((el, index) => (
@@ -576,17 +533,13 @@ const ModalMaintenance = ({
                                       fullWidth
                                       label={`Actividad ${index + 1}`}
                                       size="small"
-                                      onChange={(e) =>
-                                        handleChangeText(e.target.value, index)
-                                      }
+                                      onChange={(e) => handleChangeText(e.target.value, index)}
                                       InputProps={{
                                         endAdornment: (
                                           <InputAdornment position="end">
                                             <IconButton
                                               size="small"
-                                              onClick={() =>
-                                                handleRemoveAction(index)
-                                              }
+                                              onClick={() => handleRemoveAction(index)}
                                             >
                                               <CloseIcon color="error" />
                                             </IconButton>
@@ -599,43 +552,21 @@ const ModalMaintenance = ({
                               </ListItem>
                             ))}
                             <div align="center">
-                              <Button
-                                variant="contained"
-                                onClick={handleAddActions}
-                              >
+                              <Button variant="contained" onClick={handleAddActions}>
                                 AGREGAR
                               </Button>
                             </div>
                           </List>
                         </Grid>
-                        <Grid
-                          item
-                          xs={12}
-                          sm={6}
-                          md={4}
-                          lg={3}
-                          container
-                          alignItems="center"
-                        >
+                        <Grid item xs={12} sm={6} md={4} lg={3} container alignItems="center">
                           <FormControlLabel
                             control={
-                              <Checkbox
-                                checked={garantia}
-                                onChange={(a, b) => setGarantia(b)}
-                              />
+                              <Checkbox checked={garantia} onChange={(a, b) => setGarantia(b)} />
                             }
                             label="Garantía en meses"
                           />
                         </Grid>
-                        <Grid
-                          item
-                          xs={12}
-                          sm={6}
-                          md={4}
-                          lg={3}
-                          container
-                          alignItems="center"
-                        >
+                        <Grid item xs={12} sm={6} md={4} lg={3} container alignItems="center">
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -670,14 +601,8 @@ const ModalMaintenance = ({
                         </Grid>
                         <Grid item xs={12}>
                           <FormControl component="fieldset">
-                            <FormLabel component="legend">
-                              Estado de finalización
-                            </FormLabel>
-                            <RadioGroup
-                              row
-                              value={statusEnd}
-                              onChange={(a, b) => setStatusEnd(b)}
-                            >
+                            <FormLabel component="legend">Estado de finalización</FormLabel>
+                            <RadioGroup row value={statusEnd} onChange={(a, b) => setStatusEnd(b)}>
                               {statusList.map((el, index) => (
                                 <FormControlLabel
                                   key={index}
@@ -691,64 +616,35 @@ const ModalMaintenance = ({
                         </Grid>
 
                         <Title title="7. DATOS DE LOS REPUESTOS (Partes, accesorios y materiales)" />
-                        <ListSubheader>
-                          DESCRIPCIÓN DE RECURSOS MATERIALES
-                        </ListSubheader>
+                        <ListSubheader>DESCRIPCIÓN DE RECURSOS MATERIALES</ListSubheader>
                         <Grid item xs={12}>
                           {rcrss.map((el, i) => (
                             <Card variant="outlined" key={i}>
                               <CardContent>
                                 <Grid container>
-                                  <Grid
-                                    item
-                                    style={{ width: "calc((100%) - 40px)" }}
-                                  >
+                                  <Grid item style={{ width: "calc((100%) - 40px)" }}>
                                     <Grid container spacing={1}>
                                       <Grid item xs={12} sm={6} md={4} lg={3}>
                                         <TextField
                                           variant="outlined"
                                           value={el.code}
-                                          onChange={(e) =>
-                                            hndRecursos(
-                                              e.target.value,
-                                              "code",
-                                              i
-                                            )
-                                          }
+                                          onChange={(e) => hndRecursos(e.target.value, "code", i)}
                                           fullWidth
                                           label="Código de repuesto"
                                           size="small"
                                         />
                                       </Grid>
                                       <Grid item xs={12} sm={6} md={4} lg={3}>
-                                        <FormControl
-                                          variant="outlined"
-                                          fullWidth
-                                          size="small"
-                                        >
-                                          <InputLabel>
-                                            Tipo Adquisición
-                                          </InputLabel>
+                                        <FormControl variant="outlined" fullWidth size="small">
+                                          <InputLabel>Tipo Adquisición</InputLabel>
                                           <Select
                                             label="Tipo Adquisición"
                                             value={el.type}
-                                            onChange={(e) =>
-                                              hndRecursos(
-                                                e.target.value,
-                                                "type",
-                                                i
-                                              )
-                                            }
+                                            onChange={(e) => hndRecursos(e.target.value, "type", i)}
                                           >
-                                            <MenuItem value="Ejecutor">
-                                              Ejecutor
-                                            </MenuItem>
-                                            <MenuItem value="Almacén">
-                                              Almacén
-                                            </MenuItem>
-                                            <MenuItem value="Caja Chica">
-                                              Caja Chica
-                                            </MenuItem>
+                                            <MenuItem value="Ejecutor">Ejecutor</MenuItem>
+                                            <MenuItem value="Almacén">Almacén</MenuItem>
+                                            <MenuItem value="Caja Chica">Caja Chica</MenuItem>
                                           </Select>
                                         </FormControl>
                                       </Grid>
@@ -757,13 +653,7 @@ const ModalMaintenance = ({
                                           <TextField
                                             variant="outlined"
                                             value={el.name}
-                                            onChange={(e) =>
-                                              hndRecursos(
-                                                e.target.value,
-                                                "name",
-                                                i
-                                              )
-                                            }
+                                            onChange={(e) => hndRecursos(e.target.value, "name", i)}
                                             fullWidth
                                             label="Nombre"
                                             size="small"
@@ -772,9 +662,7 @@ const ModalMaintenance = ({
                                           <SelectInsumos
                                             data={insumos}
                                             value={el.id}
-                                            setValue={(e) =>
-                                              hndRecursos(e, "id", i)
-                                            }
+                                            setValue={(e) => hndRecursos(e, "id", i)}
                                           />
                                         )}
                                       </Grid>
@@ -782,13 +670,7 @@ const ModalMaintenance = ({
                                         <TextField
                                           variant="outlined"
                                           value={el.caract}
-                                          onChange={(e) =>
-                                            hndRecursos(
-                                              e.target.value,
-                                              "caract",
-                                              i
-                                            )
-                                          }
+                                          onChange={(e) => hndRecursos(e.target.value, "caract", i)}
                                           fullWidth
                                           label="Caracterísctica técnicas"
                                           size="small"
@@ -798,13 +680,7 @@ const ModalMaintenance = ({
                                         <TextField
                                           variant="outlined"
                                           value={el.und_m}
-                                          onChange={(e) =>
-                                            hndRecursos(
-                                              e.target.value,
-                                              "und_m",
-                                              i
-                                            )
-                                          }
+                                          onChange={(e) => hndRecursos(e.target.value, "und_m", i)}
                                           fullWidth
                                           label="Unidad de medida"
                                           size="small"
@@ -815,14 +691,9 @@ const ModalMaintenance = ({
                                           variant="outlined"
                                           value={el.cant}
                                           onChange={(e) => {
+                                            hndRecursos(e.target.value, "cant", i);
                                             hndRecursos(
-                                              e.target.value,
-                                              "cant",
-                                              i
-                                            );
-                                            hndRecursos(
-                                              Number(el.cant) *
-                                                Number(el.vlr_u),
+                                              Number(el.cant) * Number(el.vlr_u),
                                               "total",
                                               i
                                             );
@@ -839,14 +710,9 @@ const ModalMaintenance = ({
                                           value={el.vlr_u}
                                           type="number"
                                           onChange={(e) => {
+                                            hndRecursos(e.target.value, "vlr_u", i);
                                             hndRecursos(
-                                              e.target.value,
-                                              "vlr_u",
-                                              i
-                                            );
-                                            hndRecursos(
-                                              Number(el.cant) *
-                                                Number(el.vlr_u),
+                                              Number(el.cant) * Number(el.vlr_u),
                                               "total",
                                               i
                                             );
@@ -875,10 +741,7 @@ const ModalMaintenance = ({
                                     justifyContent="center"
                                     alignItems="center"
                                   >
-                                    <IconButton
-                                      size="small"
-                                      onClick={() => hndRemoveRecursos(i)}
-                                    >
+                                    <IconButton size="small" onClick={() => hndRemoveRecursos(i)}>
                                       <CloseIcon color="error" />
                                     </IconButton>
                                   </Grid>
@@ -887,36 +750,26 @@ const ModalMaintenance = ({
                             </Card>
                           ))}
                           <div align="center">
-                            <Button
-                              variant="contained"
-                              onClick={hndAddRecursos}
-                            >
+                            <Button variant="contained" onClick={hndAddRecursos}>
                               AGREGAR
                             </Button>
                           </div>
                         </Grid>
 
                         <Title title="8. DATOS DE LA MANO DE OBRA" />
-                        <ListSubheader>
-                          DESCRIPCIÓN DE RECURSOS HUMANOS
-                        </ListSubheader>
+                        <ListSubheader>DESCRIPCIÓN DE RECURSOS HUMANOS</ListSubheader>
                         <Grid item xs={12}>
                           {rrhh.map((el, i) => (
                             <Card variant="outlined" key={i}>
                               <CardContent>
                                 <Grid container>
-                                  <Grid
-                                    item
-                                    style={{ width: "calc((100%) - 40px)" }}
-                                  >
+                                  <Grid item style={{ width: "calc((100%) - 40px)" }}>
                                     <Grid container spacing={1}>
                                       <Grid item xs={12} sm={6} md={6} lg={3}>
                                         <TextField
                                           variant="outlined"
                                           value={el.code}
-                                          onChange={(e) =>
-                                            hndRRHH(e.target.value, "code", i)
-                                          }
+                                          onChange={(e) => hndRRHH(e.target.value, "code", i)}
                                           fullWidth
                                           label="Código del personal"
                                           size="small"
@@ -926,9 +779,7 @@ const ModalMaintenance = ({
                                         <TextField
                                           variant="outlined"
                                           value={el.name}
-                                          onChange={(e) =>
-                                            hndRRHH(e.target.value, "name", i)
-                                          }
+                                          onChange={(e) => hndRRHH(e.target.value, "name", i)}
                                           fullWidth
                                           label="Nombre del personal"
                                           size="small"
@@ -940,14 +791,9 @@ const ModalMaintenance = ({
                                           type="number"
                                           value={el.price_hour}
                                           onChange={(e) => {
+                                            hndRRHH(e.target.value, "price_hour", i);
                                             hndRRHH(
-                                              e.target.value,
-                                              "price_hour",
-                                              i
-                                            );
-                                            hndRRHH(
-                                              Number(el.price_hour) *
-                                                Number(el.hours),
+                                              Number(el.price_hour) * Number(el.hours),
                                               "total",
                                               i
                                             );
@@ -965,8 +811,7 @@ const ModalMaintenance = ({
                                           onChange={(e) => {
                                             hndRRHH(e.target.value, "hours", i);
                                             hndRRHH(
-                                              Number(el.price_hour) *
-                                                Number(el.hours),
+                                              Number(el.price_hour) * Number(el.hours),
                                               "total",
                                               i
                                             );
@@ -996,10 +841,7 @@ const ModalMaintenance = ({
                                     justifyContent="center"
                                     alignItems="center"
                                   >
-                                    <IconButton
-                                      size="small"
-                                      onClick={() => hndRemoveRRHH(i)}
-                                    >
+                                    <IconButton size="small" onClick={() => hndRemoveRRHH(i)}>
                                       <CloseIcon color="error" />
                                     </IconButton>
                                   </Grid>
@@ -1034,11 +876,7 @@ const ModalMaintenance = ({
             </Container>
           </DialogContent>
           <DialogActions>
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={() => setOpen(false)}
-            >
+            <Button variant="outlined" color="secondary" onClick={() => setOpen(false)}>
               CANCELAR
             </Button>
             <Button
