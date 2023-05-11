@@ -1,4 +1,2 @@
-// const api = "http://192.168.2.115:5000/api";
-const api = "https://clinica-htm.herokuapp.com/api";
-const API_HOSPITAL = api; // process.env.REACT_APP_API_HOSPITAL
+const API_HOSPITAL = "https://nodejs-hospital-production.up.railway.app/api";
 export default API_HOSPITAL;
